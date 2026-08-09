@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sarabande — maquette de marque</title>
+<title>Sakidoo Studio — maquette de marque</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,6 +17,9 @@
   --encre-30:#B7B2C4;
   --framboise:#FF4D6D;
   --turquoise:#17BEBB;
+  --orange:#FF7A1A;
+  --orange-fonce:#E0620C;
+  --orange-pale:#FFE2C8;
   --rule:#E7E1D3;
 
   --display:'Bricolage Grotesque',system-ui,sans-serif;
@@ -37,21 +40,21 @@ body{
 img{max-width:100%;display:block}
 button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 a{color:inherit;text-decoration:none}
-:focus-visible{outline:3px solid var(--framboise);outline-offset:3px;border-radius:4px}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:4px}
 
 /* ============ MOCKUP CHROME (not part of the site) ============ */
 .chrome{
   position:sticky;top:0;z-index:200;
   display:flex;align-items:center;gap:14px;flex-wrap:wrap;
-  padding:10px 18px;background:#141020;color:#fff;
+  padding:10px 18px;background:#000;color:#fff;
   font-size:12px;letter-spacing:.02em;
 }
-.chrome .brandtag{font-family:var(--display);font-weight:800;letter-spacing:-.02em;font-size:14px}
-.chrome .brandtag span{color:var(--jaune)}
-.chrome .grp{display:flex;gap:4px;background:#241E3A;padding:4px;border-radius:100px}
-.chrome .grp button{padding:6px 13px;border-radius:100px;color:#B9B2CE;font-weight:600;font-size:12px}
-.chrome .grp button[aria-pressed="true"]{background:var(--jaune);color:#141020}
-.chrome .note{margin-left:auto;color:#7E7797;font-size:11px}
+.chrome .brandtag{font-family:var(--display);font-weight:800;letter-spacing:-.02em;font-size:15px;color:var(--jaune)}
+.chrome .brandtag span{color:var(--orange)}
+.chrome .grp{display:flex;gap:4px;background:#fff;padding:4px;border-radius:100px}
+.chrome .grp button{padding:6px 13px;border-radius:100px;color:#000;font-weight:600;font-size:12px}
+.chrome .grp button[aria-pressed="true"]{background:var(--jaune);color:#000;box-shadow:inset 0 0 0 1.5px #000}
+.chrome .note{margin-left:auto;color:#9A93AE;font-size:11px}
 
 /* ============ DEVICE FRAME ============ */
 .stage{padding:26px var(--pad) 60px;display:flex;justify-content:center}
@@ -66,15 +69,16 @@ body.mobile .stage{padding-top:34px}
 }
 .head-in{display:flex;align-items:center;gap:34px;padding:16px 34px}
 .logo{font-family:var(--display);font-weight:800;font-size:23px;letter-spacing:-.035em;display:flex;align-items:center;gap:5px}
+.logo .studio{color:var(--orange)}
 .eclat{width:11px;height:11px;flex:none}
-.eclat path{fill:var(--framboise)}
+.eclat path{fill:var(--orange)}
 .nav{display:flex;gap:26px;font-size:14px;font-weight:600}
 .nav a{padding:6px 0;border-bottom:2px solid transparent}
 .nav a:hover,.nav a.on{border-color:var(--encre)}
 .head-tools{margin-left:auto;display:flex;align-items:center;gap:16px;font-size:13px;font-weight:600}
 .lang{display:flex;align-items:center;gap:6px;color:var(--encre-60)}
 .lang button[aria-pressed="true"]{color:var(--encre);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
-.cart{display:flex;align-items:center;gap:7px;background:var(--encre);color:#fff;padding:9px 15px;border-radius:100px;font-size:12.5px}
+.cart{display:flex;align-items:center;gap:7px;background:var(--orange);color:#fff;padding:9px 15px;border-radius:100px;font-size:12.5px}
 .burger{display:none;flex-direction:column;gap:4px;margin-left:auto}
 .burger i{display:block;width:20px;height:2px;background:var(--encre)}
 
@@ -90,13 +94,14 @@ p{line-height:1.62;color:var(--encre-60)}
 .sec{padding:76px 34px}
 .sec-head{display:flex;align-items:flex-end;gap:24px;margin-bottom:34px;flex-wrap:wrap}
 .sec-head p{max-width:40ch;font-size:15px}
-.sec-head .more{margin-left:auto;font-weight:600;font-size:14px;border-bottom:2px solid var(--jaune);padding-bottom:3px}
+.sec-head .more{margin-left:auto;font-weight:600;font-size:14px;border-bottom:2px solid var(--orange);padding-bottom:3px}
 
 /* buttons */
 .btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:100px;font-weight:700;font-size:15px;transition:transform .16s ease, box-shadow .16s ease}
 .btn:hover{transform:translateY(-2px)}
 .btn-ink{background:var(--encre);color:var(--creme);box-shadow:0 6px 0 rgba(28,24,48,.18)}
 .btn-yel{background:var(--jaune);color:var(--encre);box-shadow:0 6px 0 #E0B62B}
+.btn-or{background:var(--orange);color:#fff;box-shadow:0 6px 0 var(--orange-fonce)}
 .btn-out{border:2px solid var(--encre);padding:13px 24px}
 
 /* ============ HERO ============ */
@@ -105,9 +110,9 @@ p{line-height:1.62;color:var(--encre-60)}
 .hero h1{max-width:11ch}
 .hero .lede{margin:22px 0 30px;color:#3A2F10}
 .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-.hero-proof{display:flex;gap:26px;margin:44px 0 0;padding:22px 0 30px;border-top:2px solid rgba(28,24,48,.14);flex-wrap:wrap}
+.hero-proof{display:flex;gap:26px;margin:44px 0 0;padding:22px 0 30px;border-top:3px solid var(--orange);flex-wrap:wrap}
 .hero-proof div{font-size:12.5px;font-weight:600;line-height:1.4}
-.hero-proof b{display:block;font-family:var(--display);font-size:26px;letter-spacing:-.03em}
+.hero-proof b{display:block;font-family:var(--display);font-size:26px;letter-spacing:-.03em;color:var(--orange-fonce)}
 
 /* the bag — signature illustration */
 .bag-wrap{position:relative;padding:10px 0 46px;display:flex;justify-content:center}
@@ -131,19 +136,20 @@ p{line-height:1.62;color:var(--encre-60)}
 .card-inside .eyebrow{font-size:9px}
 .card-inside h4{font-family:var(--display);font-size:26px;letter-spacing:-.03em;margin:6px 0 10px}
 .card-inside ul{list-style:none;font-size:11.5px;font-weight:600;color:var(--encre-60);display:grid;gap:5px}
-.card-inside li::before{content:"◆";color:var(--jaune);margin-right:7px;font-size:9px}
+.card-inside li::before{content:"◆";color:var(--orange);margin-right:7px;font-size:9px}
 .bits{position:absolute;inset:auto 22px 20px 22px;display:flex;gap:9px;align-items:flex-end;justify-content:center}
 .bits i{display:block;border-radius:50%}
-.bits i:nth-child(1){width:26px;height:26px;background:var(--framboise)}
+.bits i:nth-child(1){width:26px;height:26px;background:var(--orange)}
 .bits i:nth-child(2){width:17px;height:17px;background:var(--turquoise)}
 .bits i:nth-child(3){width:34px;height:34px;background:var(--encre)}
 .bits i:nth-child(4){width:20px;height:20px;background:#fff}
-.bits i:nth-child(5){width:14px;height:14px;background:var(--framboise)}
+.bits i:nth-child(5){width:14px;height:14px;background:var(--orange-fonce)}
 
 /* marquee */
 .marquee{background:var(--encre);color:var(--creme);overflow:hidden;padding:15px 0;white-space:nowrap}
 .marquee-in{display:inline-block;animation:slide 26s linear infinite;font-family:var(--display);font-size:20px;letter-spacing:-.02em}
-.marquee-in span{opacity:.4;margin:0 16px;color:var(--jaune)}
+.marquee-in span{margin:0 16px;color:var(--orange)}
+.marquee-in span:nth-child(even){color:var(--jaune)}
 @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ============ OCCASIONS ============ */
@@ -160,19 +166,50 @@ p{line-height:1.62;color:var(--encre-60)}
 .occ b{font-family:var(--display);font-size:21px;letter-spacing:-.02em}
 .occ small{font-size:11.5px;opacity:.85;font-weight:500}
 
-/* photo placeholders */
-.ph{background:var(--citron);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.ph::before{
-  content:attr(data-ph);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  text-align:center;padding:14px;font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
-  color:rgba(28,24,48,.42);line-height:1.5;z-index:1
-}
-.ph.t1{background:linear-gradient(140deg,#FFE68A,#FFC93F)}
-.ph.t2{background:linear-gradient(140deg,#9BE7E5,#17BEBB)}
-.ph.t3{background:linear-gradient(140deg,#FFB3C0,#FF4D6D)}
-.ph.t4{background:linear-gradient(140deg,#4A4272,#1C1830)}
-.ph.t4::before{color:rgba(255,255,255,.5)}
-.ph.t2::before,.ph.t3::before{color:rgba(255,255,255,.72)}
+/* illustrated stand-in images (generic scenes, no external files) */
+.ph{background:var(--citron);position:relative;overflow:hidden;
+    background-size:cover;background-position:center;background-repeat:no-repeat}
+.ph.t1{background-color:#FFD84D}
+.ph.t2{background-color:#17BEBB}
+.ph.t3{background-color:#FF7A1A}
+.ph.t4{background-color:#1C1830}
+
+/* around the kitchen table */
+.sc-family{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23FFD84D'/><rect y='196' width='400' height='104' fill='%23F0B92A'/><circle cx='338' cy='52' r='30' fill='%23FFF3CC'/><path d='M338 22v-16M338 98v14M308 52h-16M384 52h16' stroke='%23FFF3CC' stroke-width='5' stroke-linecap='round'/><g fill='%231C1830'><circle cx='92' cy='128' r='23'/><rect x='66' y='156' width='52' height='78' rx='26'/><circle cx='200' cy='104' r='27'/><rect x='170' y='136' width='60' height='96' rx='30'/><circle cx='308' cy='130' r='22'/><rect x='283' y='157' width='50' height='76' rx='25'/></g><ellipse cx='200' cy='272' rx='188' ry='54' fill='%23FFFCF5'/><circle cx='118' cy='266' r='17' fill='%23FF7A1A'/><circle cx='282' cy='266' r='17' fill='%2317BEBB'/><circle cx='200' cy='256' r='21' fill='%23FF7A1A' opacity='.55'/></svg>")}
+/* holiday basement */
+.sc-holiday{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%232A2350'/><path d='M0 34q100 46 200 0t200 0' stroke='%23554C86' stroke-width='3' fill='none'/><g><circle cx='60' cy='52' r='9' fill='%23FF7A1A'/><circle cx='134' cy='60' r='9' fill='%23FFD84D'/><circle cx='200' cy='58' r='9' fill='%2317BEBB'/><circle cx='268' cy='50' r='9' fill='%23FF7A1A'/><circle cx='340' cy='40' r='9' fill='%23FFD84D'/></g><path d='M330 250l-42-96h84z' fill='%2317BEBB'/><path d='M330 188l-30-66h60z' fill='%2317BEBB'/><rect x='322' y='250' width='16' height='22' fill='%23FF7A1A'/><g fill='%23FFFCF5'><circle cx='96' cy='140' r='24'/><rect x='69' y='170' width='54' height='90' rx='27'/><circle cx='188' cy='128' r='26'/><rect x='158' y='160' width='60' height='100' rx='30'/></g><path d='M96 178l-34-26M188 168l40-30' stroke='%23FFFCF5' stroke-width='11' stroke-linecap='round'/><rect y='262' width='400' height='38' fill='%23191338'/></svg>")}
+/* cottage dock */
+.sc-cottage{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23BFEFEE'/><circle cx='312' cy='62' r='34' fill='%23FFD84D'/><path d='M0 128h400v172H0z' fill='%2317BEBB'/><path d='M0 128q60-34 118-8t130-4 152 4' fill='%230E9C99' opacity='.5'/><g stroke='%23FFFCF5' stroke-width='4' opacity='.7'><path d='M40 176h84M250 200h96M120 232h74'/></g><rect x='60' y='210' width='280' height='16' rx='4' fill='%23C98A48'/><rect x='96' y='226' width='12' height='58' fill='%23A96F35'/><rect x='292' y='226' width='12' height='58' fill='%23A96F35'/><g fill='%231C1830'><circle cx='150' cy='150' r='19'/><rect x='128' y='174' width='44' height='40' rx='20'/><circle cx='236' cy='142' r='19'/><rect x='214' y='166' width='44' height='48' rx='20'/></g><path d='M236 180l38-30' stroke='%231C1830' stroke-width='9' stroke-linecap='round'/><circle cx='286' cy='142' r='14' fill='%23FF7A1A'/></svg>")}
+/* office party */
+.sc-office{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%231C1830'/><rect x='28' y='34' width='120' height='84' rx='6' fill='%232E2757'/><rect x='252' y='34' width='120' height='84' rx='6' fill='%232E2757'/><g fill='%23FF7A1A'><rect x='40' y='16' width='9' height='22' rx='4' transform='rotate(18 44 27)'/><rect x='196' y='10' width='9' height='22' rx='4'/><rect x='352' y='24' width='9' height='22' rx='4' transform='rotate(-24 356 35)'/></g><g fill='%23FFD84D'><rect x='118' y='22' width='9' height='20' rx='4' transform='rotate(-14 122 32)'/><rect x='288' y='14' width='9' height='20' rx='4' transform='rotate(28 292 24)'/></g><g fill='%23FFFCF5'><circle cx='108' cy='150' r='23'/><rect x='82' y='178' width='52' height='84' rx='26'/><circle cx='292' cy='152' r='22'/><rect x='268' y='179' width='48' height='83' rx='24'/></g><g fill='%23FFD84D'><circle cx='200' cy='118' r='25'/><rect x='172' y='148' width='56' height='72' rx='28'/></g><path d='M200 168l-42-24M200 168l42-24' stroke='%23FFD84D' stroke-width='11' stroke-linecap='round'/><rect x='150' y='220' width='100' height='16' rx='6' fill='%23FF7A1A'/><rect y='262' width='400' height='38' fill='%23120E28'/></svg>")}
+/* confetti party */
+.sc-party{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23FF7A1A'/><circle cx='68' cy='60' r='40' fill='%23FFD84D' opacity='.85'/><circle cx='344' cy='96' r='26' fill='%23FFFCF5' opacity='.6'/><g fill='%23FFFCF5'><rect x='120' y='30' width='8' height='20' rx='4' transform='rotate(24 124 40)'/><rect x='236' y='18' width='8' height='20' rx='4' transform='rotate(-32 240 28)'/><rect x='300' y='46' width='8' height='20' rx='4' transform='rotate(12 304 56)'/><rect x='40' y='140' width='8' height='20' rx='4' transform='rotate(-18 44 150)'/></g><g fill='%231C1830'><circle cx='132' cy='142' r='26'/><rect x='103' y='174' width='58' height='96' rx='29'/><circle cx='262' cy='134' r='26'/><rect x='233' y='166' width='58' height='104' rx='29'/></g><path d='M132 186l-48-30M132 186l44-34M262 178l46-32M262 178l-44-28' stroke='%231C1830' stroke-width='12' stroke-linecap='round'/><circle cx='200' cy='252' r='18' fill='%2317BEBB'/></svg>")}
+/* host with a mic */
+.sc-host{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'><rect width='400' height='500' fill='%23FFD84D'/><path d='M0 330h400v170H0z' fill='%23F0B92A'/><circle cx='68' cy='84' r='38' fill='%23FFF3CC' opacity='.8'/><g fill='%231C1830' opacity='.3'><circle cx='40' cy='330' r='24'/><circle cx='116' cy='344' r='21'/><circle cx='300' cy='340' r='21'/><circle cx='372' cy='330' r='24'/><rect x='12' y='360' width='56' height='140' rx='28'/><rect x='92' y='376' width='48' height='124' rx='24'/><rect x='276' y='372' width='48' height='128' rx='24'/><rect x='344' y='360' width='56' height='140' rx='28'/></g><g fill='%231C1830'><circle cx='196' cy='150' r='52'/><path d='M196 212c46 0 74 42 74 288H122c0-246 28-288 74-288z'/></g><path d='M144 152a52 52 0 0 1 104 0q-24-18-52-18t-52 18z' fill='%23FF7A1A'/><path d='M258 268l58-46' stroke='%231C1830' stroke-width='20' stroke-linecap='round'/><circle cx='324' cy='212' r='20' fill='%23FF7A1A'/><path d='M348 184q26 28 0 56' stroke='%23FFFCF5' stroke-width='7' fill='none' stroke-linecap='round'/><path d='M370 164q44 48 0 96' stroke='%23FFFCF5' stroke-width='7' fill='none' stroke-linecap='round' opacity='.55'/></svg>")}
+/* the kit, flat lay */
+.sc-kit{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23FFF3CC'/><rect x='58' y='40' width='190' height='230' rx='14' fill='%23FFFCF5' stroke='%231C1830' stroke-width='4'/><path d='M70 62h166' stroke='%231C1830' stroke-width='7' stroke-dasharray='7 7'/><rect x='84' y='92' width='138' height='96' rx='8' fill='%23FFD84D'/><rect x='98' y='110' width='90' height='9' rx='4' fill='%231C1830'/><rect x='98' y='130' width='110' height='7' rx='3' fill='%231C1830' opacity='.5'/><rect x='98' y='146' width='96' height='7' rx='3' fill='%231C1830' opacity='.5'/><rect x='98' y='162' width='72' height='7' rx='3' fill='%231C1830' opacity='.5'/><circle cx='112' cy='224' r='19' fill='%23FF7A1A'/><circle cx='156' cy='232' r='14' fill='%2317BEBB'/><circle cx='198' cy='224' r='17' fill='%231C1830'/><ellipse cx='312' cy='118' rx='62' ry='40' fill='%23FFFCF5' stroke='%231C1830' stroke-width='4'/><circle cx='294' cy='112' r='13' fill='%23FFFCF5' stroke='%231C1830' stroke-width='3'/><circle cx='324' cy='124' r='13' fill='%23FFFCF5' stroke='%231C1830' stroke-width='3'/><ellipse cx='312' cy='222' rx='58' ry='36' fill='%23FF7A1A'/><ellipse cx='312' cy='214' rx='38' ry='22' fill='%23FFFCF5'/></svg>")}
+/* instruction card close-up */
+.sc-card{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23FF7A1A'/><rect x='46' y='30' width='308' height='240' rx='12' fill='%23FFFCF5' transform='rotate(-2 200 150)'/><g transform='rotate(-2 200 150)'><rect x='74' y='62' width='96' height='11' rx='5' fill='%23FF7A1A'/><rect x='74' y='92' width='196' height='18' rx='6' fill='%231C1830'/><rect x='74' y='134' width='250' height='8' rx='4' fill='%231C1830' opacity='.35'/><rect x='74' y='154' width='224' height='8' rx='4' fill='%231C1830' opacity='.35'/><rect x='74' y='174' width='240' height='8' rx='4' fill='%231C1830' opacity='.35'/><rect x='74' y='210' width='72' height='28' rx='14' fill='%23FFD84D'/><rect x='158' y='210' width='72' height='28' rx='14' fill='%2317BEBB'/><rect x='242' y='210' width='72' height='28' rx='14' fill='%23FF7A1A'/></g></svg>")}
+/* two teams playing */
+.sc-teams{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%2317BEBB'/><rect y='214' width='400' height='86' fill='%230E9C99'/><g fill='%231C1830'><circle cx='72' cy='128' r='22'/><rect x='47' y='156' width='50' height='84' rx='25'/><circle cx='140' cy='142' r='20'/><rect x='118' y='168' width='44' height='74' rx='22'/></g><g fill='%23FFFCF5'><circle cx='262' cy='142' r='20'/><rect x='240' y='168' width='44' height='74' rx='22'/><circle cx='330' cy='128' r='22'/><rect x='305' y='156' width='50' height='84' rx='25'/></g><rect x='186' y='60' width='28' height='200' rx='14' fill='%23FF7A1A'/><circle cx='200' cy='46' r='20' fill='%23FFD84D'/></svg>")}
+/* big hall, large crowd */
+.sc-crowd{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%231C1830'/><rect x='120' y='26' width='160' height='58' rx='8' fill='%23FF7A1A'/><g fill='%23FFD84D' opacity='.9'><circle cx='38' cy='128' r='13'/><circle cx='96' cy='120' r='13'/><circle cx='154' cy='128' r='13'/><circle cx='212' cy='118' r='13'/><circle cx='270' cy='128' r='13'/><circle cx='328' cy='120' r='13'/><circle cx='382' cy='130' r='13'/></g><g fill='%23FFFCF5' opacity='.85'><circle cx='68' cy='186' r='15'/><circle cx='132' cy='178' r='15'/><circle cx='196' cy='188' r='15'/><circle cx='260' cy='178' r='15'/><circle cx='324' cy='188' r='15'/></g><g fill='%23FF7A1A'><circle cx='40' cy='252' r='18'/><circle cx='118' cy='244' r='18'/><circle cx='198' cy='254' r='18'/><circle cx='278' cy='244' r='18'/><circle cx='358' cy='254' r='18'/></g><g fill='%23FFFCF5' opacity='.25'><rect x='52' y='198' width='32' height='102' rx='16'/><rect x='116' y='190' width='32' height='110' rx='16'/><rect x='180' y='200' width='32' height='100' rx='16'/><rect x='244' y='190' width='32' height='110' rx='16'/><rect x='308' y='200' width='32' height='100' rx='16'/></g></svg>")}
+/* wedding reception */
+.sc-wedding{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23BFEFEE'/><path d='M96 280V150a104 104 0 0 1 208 0v130' fill='none' stroke='%23FFFCF5' stroke-width='18'/><g fill='%23FF7A1A'><circle cx='120' cy='96' r='12'/><circle cx='200' cy='58' r='12'/><circle cx='282' cy='98' r='12'/></g><g fill='%23FFD84D'><circle cx='158' cy='68' r='9'/><circle cx='244' cy='70' r='9'/></g><rect y='238' width='400' height='62' fill='%2317BEBB'/><g fill='%231C1830'><circle cx='170' cy='170' r='22'/><rect x='145' y='198' width='50' height='90' rx='25'/><circle cx='236' cy='168' r='22'/><path d='M236 192c26 0 40 30 40 96h-80c0-66 14-96 40-96z'/></g><path d='M192 216h22' stroke='%231C1830' stroke-width='10' stroke-linecap='round'/></svg>")}
+/* kids and grown-ups, ball game */
+.sc-kids{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23FFD84D'/><rect y='222' width='400' height='78' fill='%23F0B92A'/><rect x='36' y='60' width='84' height='64' rx='6' fill='%23FFF3CC'/><g fill='%231C1830'><circle cx='96' cy='166' r='24'/><rect x='68' y='196' width='56' height='92' rx='28'/><circle cx='288' cy='190' r='18'/><rect x='268' y='214' width='40' height='74' rx='20'/></g><path d='M124 206l40-28M268 226l-40-20' stroke='%231C1830' stroke-width='12' stroke-linecap='round'/><circle cx='200' cy='150' r='30' fill='%23FF7A1A'/><path d='M176 134q24 32 48 0M176 166q24-32 48 0' stroke='%23FFFCF5' stroke-width='5' fill='none'/></svg>")}
+/* quiet circle */
+.sc-calm{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%2317BEBB'/><ellipse cx='200' cy='170' rx='130' ry='84' fill='none' stroke='%23FFFCF5' stroke-width='6' opacity='.6'/><g fill='%231C1830'><circle cx='200' cy='72' r='19'/><circle cx='312' cy='132' r='19'/><circle cx='312' cy='224' r='19'/><circle cx='200' cy='268' r='19'/><circle cx='88' cy='224' r='19'/><circle cx='88' cy='132' r='19'/></g><circle cx='200' cy='170' r='30' fill='%23FF7A1A'/></svg>")}
+/* mime duel */
+.sc-mime{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23FF7A1A'/><circle cx='200' cy='140' r='96' fill='%23FFD84D' opacity='.45'/><g fill='%231C1830'><circle cx='128' cy='120' r='26'/><rect x='98' y='152' width='60' height='110' rx='30'/><circle cx='276' cy='134' r='24'/><rect x='249' y='164' width='54' height='98' rx='27'/></g><path d='M158 176l40-38M249 190l-38-30' stroke='%231C1830' stroke-width='13' stroke-linecap='round'/><path d='M196 96q10-16 20 0' stroke='%23FFFCF5' stroke-width='6' fill='none' stroke-linecap='round'/><rect y='262' width='400' height='38' fill='%23E0620C'/></svg>")}
+/* table game with props */
+.sc-table{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23FFF3CC'/><rect y='176' width='400' height='124' fill='%23E7D9A8'/><rect x='26' y='196' width='348' height='16' rx='8' fill='%23FFFCF5'/><g fill='%231C1830'><circle cx='92' cy='108' r='24'/><rect x='64' y='138' width='56' height='58' rx='28'/><circle cx='308' cy='108' r='24'/><rect x='280' y='138' width='56' height='58' rx='28'/></g><circle cx='92' cy='134' r='8' fill='%23FFFCF5'/><circle cx='308' cy='134' r='8' fill='%23FFFCF5'/><ellipse cx='200' cy='218' rx='54' ry='24' fill='%23FF7A1A'/><ellipse cx='200' cy='210' rx='34' ry='14' fill='%23FFFCF5'/><circle cx='128' cy='236' r='14' fill='%23FFFCF5' stroke='%231C1830' stroke-width='3'/><circle cx='272' cy='236' r='14' fill='%23FFFCF5' stroke='%231C1830' stroke-width='3'/></svg>")}
+/* pack of kits */
+.sc-pack{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%231C1830'/><rect x='40' y='96' width='320' height='150' rx='12' fill='%23E7D9A8'/><path d='M40 96h320l-40-46H80z' fill='%23FFF3CC'/><rect x='66' y='118' width='68' height='110' rx='8' fill='%23FFD84D'/><rect x='146' y='118' width='68' height='110' rx='8' fill='%23FF7A1A'/><rect x='226' y='118' width='68' height='110' rx='8' fill='%2317BEBB'/><rect x='306' y='118' width='34' height='110' rx='8' fill='%23FFFCF5'/><g stroke='%231C1830' stroke-width='4' stroke-dasharray='6 6'><path d='M66 140h68M146 140h68M226 140h68'/></g></svg>")}
+/* floating cards */
+.sc-cards{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%2317BEBB'/><path d='M0 196q52-22 100 0t100 0 100 0 100 0v104H0z' fill='%230E9C99'/><g stroke='%231C1830' stroke-width='4'><rect x='72' y='96' width='84' height='118' rx='10' fill='%23FFFCF5' transform='rotate(-14 114 155)'/><rect x='158' y='82' width='84' height='118' rx='10' fill='%23FFD84D' transform='rotate(3 200 141)'/><rect x='244' y='96' width='84' height='118' rx='10' fill='%23FFFCF5' transform='rotate(16 286 155)'/></g><circle cx='200' cy='134' r='18' fill='%23FF7A1A'/></svg>")}
+/* video still */
+.sc-video{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%231C1830'/><g fill='%23FFFCF5' opacity='.22'><circle cx='96' cy='150' r='34'/><rect x='58' y='196' width='76' height='104' rx='38'/><circle cx='304' cy='150' r='34'/><rect x='266' y='196' width='76' height='104' rx='38'/></g><circle cx='200' cy='150' r='54' fill='%23FF7A1A'/><path d='M186 124l46 26-46 26z' fill='%23FFFCF5'/></svg>")}
 
 /* ============ STEPS ============ */
 .steps-sec{background:var(--citron)}
@@ -180,7 +217,7 @@ p{line-height:1.62;color:var(--encre-60)}
 .step{position:relative;padding-top:26px;border-top:2px solid var(--encre)}
 .step::before{
   counter-increment:s;content:counter(s);position:absolute;top:-17px;left:0;
-  width:32px;height:32px;border-radius:50%;background:var(--encre);color:var(--jaune);
+  width:32px;height:32px;border-radius:50%;background:var(--orange);color:#fff;
   display:grid;place-items:center;font-family:var(--display);font-size:15px;font-weight:700
 }
 .step h3{margin-bottom:8px}
@@ -202,9 +239,9 @@ p{line-height:1.62;color:var(--encre-60)}
 .kit .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .meta{display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;border-top:1px solid var(--rule);padding-top:11px;margin-top:auto}
 .meta span{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--encre-60);display:flex;align-items:center;gap:6px}
-.meta span::before{content:"";width:5px;height:5px;background:var(--jaune);border-radius:50%;flex:none}
-.tag{position:absolute;top:26px;left:14px;z-index:3;background:var(--framboise);color:#fff;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:5px 10px;border-radius:100px}
-.tag.tq{background:var(--turquoise)}
+.meta span::before{content:"";width:5px;height:5px;background:var(--orange);border-radius:50%;flex:none}
+.tag{position:absolute;top:26px;left:14px;z-index:3;background:var(--orange);color:#fff;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:5px 10px;border-radius:100px}
+.tag.tq{background:var(--turquoise);color:#04302F}
 .tag.ink{background:var(--encre)}
 .kit .add{margin-top:4px;width:100%;justify-content:center;padding:12px}
 
@@ -214,13 +251,13 @@ p{line-height:1.62;color:var(--encre-60)}
 .split{display:grid;grid-template-columns:1fr 1.1fr;gap:52px;align-items:center}
 .sylvie .ph{border-radius:var(--radius);aspect-ratio:4/4.6}
 .sylvie h2{font-size:clamp(32px,4vw,54px);margin:14px 0 20px}
-.sylvie .quote{font-family:var(--display);font-size:22px;line-height:1.24;letter-spacing:-.02em;color:var(--jaune);margin:26px 0;padding-left:20px;border-left:3px solid var(--jaune)}
+.sylvie .quote{font-family:var(--display);font-size:22px;line-height:1.24;letter-spacing:-.02em;color:var(--orange);margin:26px 0;padding-left:20px;border-left:3px solid var(--orange)}
 .sign{font-family:var(--display);font-size:30px;color:var(--jaune);letter-spacing:-.03em;transform:rotate(-3deg);display:inline-block;margin-top:8px}
 
 /* ============ SERVICES CARDS ============ */
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .svc{border:2px solid var(--encre);border-radius:var(--radius);padding:24px;background:var(--creme);display:flex;flex-direction:column;gap:9px;transition:background .18s ease}
-.svc:hover{background:var(--jaune)}
+.svc:hover{background:var(--orange-pale);border-color:var(--orange)}
 .svc h3{font-size:22px}
 .svc p{font-size:14px}
 .svc .from{margin-top:auto;padding-top:14px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--encre-60)}
@@ -228,7 +265,7 @@ p{line-height:1.62;color:var(--encre-60)}
 /* ============ TESTIMONIALS ============ */
 .demo-flag{display:inline-flex;align-items:center;gap:7px;background:rgba(28,24,48,.07);border:1px dashed var(--encre-30);color:var(--encre-60);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:100px;margin-bottom:22px}
 .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.quo{background:#fff;border-radius:var(--radius);padding:26px;border:1px solid var(--rule);display:flex;flex-direction:column;gap:14px}
+.quo{background:#fff;border-radius:var(--radius);padding:26px;border:1px solid var(--rule);border-top:4px solid var(--orange);display:flex;flex-direction:column;gap:14px}
 .quo blockquote{font-family:var(--display);font-size:21px;line-height:1.22;letter-spacing:-.02em}
 .quo cite{font-style:normal;font-size:12.5px;font-weight:600;color:var(--encre-60);margin-top:auto}
 
@@ -254,7 +291,7 @@ p{line-height:1.62;color:var(--encre-60)}
 /* ============ FOOTER ============ */
 .foot{background:var(--encre);color:#B7B2C4;padding:56px 34px 30px;font-size:13.5px}
 .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px;margin-bottom:38px}
-.foot h4{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:var(--creme);margin-bottom:14px;font-weight:600;font-family:var(--body)}
+.foot h4{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:var(--orange);margin-bottom:14px;font-weight:600;font-family:var(--body)}
 .foot ul{list-style:none;display:grid;gap:9px}
 .foot .logo{color:var(--creme);margin-bottom:12px}
 .foot-bot{border-top:1px solid rgba(255,255,255,.13);padding-top:20px;display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:#736C8D}
@@ -262,7 +299,7 @@ p{line-height:1.62;color:var(--encre-60)}
 /* ============ PRODUCT PAGE ============ */
 .crumb{padding:20px 34px 0;font-size:12.5px;color:var(--encre-60);font-weight:500}
 .pdp{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;padding:26px 34px 60px}
-.gallery{display:grid;gap:10px}
+.gallery{display:grid;gap:10px;align-content:start}
 .gallery .main{aspect-ratio:4/3.2;border-radius:var(--radius)}
 .gallery .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .gallery .thumbs .ph{aspect-ratio:1;border-radius:11px}
@@ -272,14 +309,14 @@ p{line-height:1.62;color:var(--encre-60)}
 .specs div{background:var(--creme);padding:14px 16px}
 .specs dt{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--encre-60);margin-bottom:4px}
 .specs dd{font-family:var(--display);font-size:17px;letter-spacing:-.02em}
-.included{background:var(--citron);border-radius:14px;padding:22px;margin:22px 0}
+.included{background:var(--orange-pale);border-radius:14px;padding:22px;margin:22px 0}
 .included h3{font-size:17px;margin-bottom:12px}
 .included ul{list-style:none;display:grid;gap:8px;font-size:14px;font-weight:500}
-.included li::before{content:"✦";color:var(--framboise);margin-right:9px}
+.included li::before{content:"✦";color:var(--orange);margin-right:9px}
 .acc{border-top:1px solid var(--rule)}
 .acc details{border-bottom:1px solid var(--rule)}
 .acc summary{padding:17px 0;font-weight:700;font-size:15px;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
-.acc summary::after{content:"+";font-family:var(--display);font-size:20px}
+.acc summary::after{content:"+";font-family:var(--display);font-size:20px;color:var(--orange)}
 .acc details[open] summary::after{content:"–"}
 .acc p{font-size:14px;padding-bottom:17px}
 .sheet{background:#fff;border:1px solid var(--rule);border-radius:var(--radius);padding:26px;margin:0 34px 60px}
@@ -291,12 +328,12 @@ p{line-height:1.62;color:var(--encre-60)}
 .stickybuy{display:none}
 
 /* ============ SERVICES PAGE ============ */
-.svc-hero{background:var(--framboise);color:#fff;padding:64px 34px}
+.svc-hero{background:var(--orange);color:#fff;padding:64px 34px}
 .svc-hero h1{max-width:14ch}
 .svc-hero p{color:rgba(255,255,255,.9)}
 .svc-hero .lede{color:#fff}
 .adapt{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.adapt div{border-radius:14px;padding:20px;background:var(--citron)}
+.adapt div{border-radius:14px;padding:20px;background:var(--citron);border-left:4px solid var(--orange)}
 .adapt b{font-family:var(--display);font-size:17px;display:block;margin-bottom:6px;letter-spacing:-.02em}
 .adapt p{font-size:13.5px}
 .form{background:var(--encre);color:var(--creme);border-radius:26px;padding:44px;display:grid;grid-template-columns:.9fr 1.1fr;gap:44px}
@@ -306,8 +343,8 @@ p{line-height:1.62;color:var(--encre-60)}
 .fields input,.fields select,.fields textarea{padding:13px 15px;border-radius:11px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;font:inherit;font-size:14.5px}
 .fields .full{grid-column:1/-1}
 .tl{display:grid;gap:0}
-.tl div{padding:20px 0 20px 28px;border-left:2px solid var(--jaune);position:relative}
-.tl div::before{content:"";position:absolute;left:-7px;top:26px;width:12px;height:12px;border-radius:50%;background:var(--jaune);border:2px solid var(--creme)}
+.tl div{padding:20px 0 20px 28px;border-left:2px solid var(--orange);position:relative}
+.tl div::before{content:"";position:absolute;left:-7px;top:26px;width:12px;height:12px;border-radius:50%;background:var(--orange);border:2px solid var(--creme)}
 .tl b{font-family:var(--display);font-size:19px;letter-spacing:-.02em;display:block;margin-bottom:5px}
 .tl p{font-size:14px}
 
@@ -321,9 +358,9 @@ p{line-height:1.62;color:var(--encre-60)}
 body.mobile .nav{display:none}
 body.mobile .burger{display:flex}
 body.mobile .head-in{padding:13px 18px;gap:12px}
-body.mobile .logo{font-size:19px}
+body.mobile .logo{font-size:17px}
 body.mobile .head-tools{gap:10px}
-body.mobile .cart{padding:8px 12px}
+body.mobile .cart{padding:8px 12px;white-space:nowrap}
 body.mobile .sec{padding:44px 18px}
 body.mobile .hero{padding:36px 18px 0}
 body.mobile .hero-grid,body.mobile .split,body.mobile .soon,body.mobile .pdp,body.mobile .form{grid-template-columns:1fr;gap:26px}
@@ -371,7 +408,7 @@ body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
 
 <!-- ============ MOCKUP CONTROLS ============ -->
 <div class="chrome">
-  <div class="brandtag">SARABANDE <span>— maquette</span></div>
+  <div class="brandtag">SAKIDOO <span>Studio</span></div>
   <div class="grp" role="group" aria-label="Pages">
     <button data-page="home" aria-pressed="true">Accueil</button>
     <button data-page="pdp" aria-pressed="false">Fiche produit</button>
@@ -390,7 +427,7 @@ body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
   <!-- ============ SITE HEADER ============ -->
   <header class="site-head">
     <div class="head-in">
-      <a href="#" class="logo">SARABANDE
+      <a href="#" class="logo">SAKIDOO<span class="studio">Studio</span>
         <svg class="eclat" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c.9 7.4 3.7 10.7 12 12-8.3 1.3-11.1 4.6-12 12-.9-7.4-3.7-10.7-12-12C8.3 10.7 11.1 7.4 12 0z"/></svg>
       </a>
       <nav class="nav">
@@ -423,7 +460,7 @@ body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
         <p class="lede" data-en="Sylvie has been running games at family reunions, office parties and cottage weekends for twenty years. She put the good ones in a bag, with a card that explains everything. Open it, and you're the fun one.">Sylvie fait jouer du monde depuis vingt ans — réunions de famille, partys de bureau, fins de semaine au chalet. Elle a mis ses meilleurs jeux dans un sac, avec une carte qui explique tout. Vous ouvrez, et c'est vous le fun.</p>
         <div class="hero-ctas">
           <a href="#" class="btn btn-ink" data-en="Browse the games">Découvrir les jeux</a>
-          <a href="#" class="btn btn-out" data-en="Book Sylvie for your event">Réserver Sylvie</a>
+          <a href="#" class="btn btn-or" data-en="Book Sylvie for your event">Réserver Sylvie</a>
         </div>
         <div class="hero-proof">
           <div><b>38</b><span data-en="games tested on real crowds">jeux testés sur du vrai monde</span></div>
@@ -469,14 +506,14 @@ body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
       <a href="#" class="more" data-en="All collections →">Toutes les collections →</a>
     </div>
     <div class="occ">
-      <a href="#"><div class="ph t1" data-ph="Photo — trois générations autour d'une table de cuisine, quelqu'un rit fort"></div><b data-en="Family">Famille</b><small data-en="8 kits · ages 6 to 80">8 kits · de 6 à 80 ans</small></a>
-      <a href="#"><div class="ph t3" data-ph="Photo — sous-sol décoré, adultes en pyjama de Noël, chaos joyeux"></div><b data-en="The Holidays">Temps des Fêtes</b><small data-en="11 kits · big groups">11 kits · gros groupes</small></a>
-      <a href="#"><div class="ph t2" data-ph="Photo — quai de chalet, fin de journée, gang qui joue dans l'eau"></div><b data-en="At the cottage">Au chalet</b><small data-en="9 kits · indoor + outdoor">9 kits · intérieur + extérieur</small></a>
-      <a href="#"><div class="ph t4" data-ph="Photo — collègues en salle de conférence, cravates défaites, quelqu'un debout sur une chaise"></div><b data-en="Office party">Party de bureau</b><small data-en="7 kits · no alcohol needed">7 kits · sans alcool requis</small></a>
-      <a href="#"><div class="ph t3" data-ph="Photo — bachelorette, confettis, rire de groupe non posé"></div><b data-en="Bachelorette">Bachelorette</b><small data-en="6 kits · 18+">6 kits · 18 ans +</small></a>
-      <a href="#"><div class="ph t1" data-ph="Photo — enfants et adultes mélangés, jeu de ballon dans un salon"></div><b data-en="Birthday">Anniversaire</b><small data-en="10 kits · all ages">10 kits · tous les âges</small></a>
-      <a href="#"><div class="ph t2" data-ph="Photo — réception de mariage, invités qui participent, robe et espadrilles"></div><b data-en="Wedding">Mariage</b><small data-en="5 kits · reception">5 kits · réception</small></a>
-      <a href="#"><div class="ph t4" data-ph="Photo — salle communautaire pleine, 100 personnes, énergie haute"></div><b data-en="Big group">Grand groupe</b><small data-en="4 kits · 50 players +">4 kits · 50 joueurs +</small></a>
+      <a href="#"><div class="ph sc-family" role="img" aria-label="Photo — trois générations autour d'une table de cuisine, quelqu'un rit fort"></div><b data-en="Family">Famille</b><small data-en="8 kits · ages 6 to 80">8 kits · de 6 à 80 ans</small></a>
+      <a href="#"><div class="ph sc-holiday" role="img" aria-label="Photo — sous-sol décoré, adultes en pyjama de Noël, chaos joyeux"></div><b data-en="The Holidays">Temps des Fêtes</b><small data-en="11 kits · big groups">11 kits · gros groupes</small></a>
+      <a href="#"><div class="ph sc-cottage" role="img" aria-label="Photo — quai de chalet, fin de journée, gang qui joue dans l'eau"></div><b data-en="At the cottage">Au chalet</b><small data-en="9 kits · indoor + outdoor">9 kits · intérieur + extérieur</small></a>
+      <a href="#"><div class="ph sc-office" role="img" aria-label="Photo — collègues en salle de conférence, cravates défaites, quelqu'un debout sur une chaise"></div><b data-en="Office party">Party de bureau</b><small data-en="7 kits · no alcohol needed">7 kits · sans alcool requis</small></a>
+      <a href="#"><div class="ph sc-party" role="img" aria-label="Photo — bachelorette, confettis, rire de groupe non posé"></div><b data-en="Bachelorette">Bachelorette</b><small data-en="6 kits · 18+">6 kits · 18 ans +</small></a>
+      <a href="#"><div class="ph sc-kids" role="img" aria-label="Photo — enfants et adultes mélangés, jeu de ballon dans un salon"></div><b data-en="Birthday">Anniversaire</b><small data-en="10 kits · all ages">10 kits · tous les âges</small></a>
+      <a href="#"><div class="ph sc-wedding" role="img" aria-label="Photo — réception de mariage, invités qui participent, robe et espadrilles"></div><b data-en="Wedding">Mariage</b><small data-en="5 kits · reception">5 kits · réception</small></a>
+      <a href="#"><div class="ph sc-crowd" role="img" aria-label="Photo — salle communautaire pleine, 100 personnes, énergie haute"></div><b data-en="Big group">Grand groupe</b><small data-en="4 kits · 50 players +">4 kits · 50 joueurs +</small></a>
     </div>
   </section>
 
@@ -511,7 +548,7 @@ body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
       <article class="kit">
         <span class="tag" data-en="Bestseller">Plus populaire</span>
         <div class="zip"></div>
-        <div class="ph t1" data-ph="Photo — homme d'âge mûr avec une boule de ouate sur le nez, très concentré"></div>
+        <div class="ph sc-table" role="img" aria-label="Photo — homme d'âge mûr avec une boule de ouate sur le nez, très concentré"></div>
         <div class="body">
           <div class="row"><h3>Nez à nez</h3><div class="price">24 $</div></div>
           <p style="font-size:13.5px" data-en="Move the cotton ball from the bowl to your teammate's plate. With your nose. That's the whole game.">Transférer la ouate du bol à l'assiette de votre coéquipier. Avec le nez. C'est tout le jeu.</p>
@@ -524,9 +561,9 @@ body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
       </article>
 
       <article class="kit">
-        <span class="tag ink" data-en="Big groups">Grand groupe</span>
+        <span class="tag tq" data-en="Big groups">Grand groupe</span>
         <div class="zip"></div>
-        <div class="ph t3" data-ph="Photo — grande salle, deux équipes de 20 personnes qui crient, tour de gobelets"></div>
+        <div class="ph sc-teams" role="img" aria-label="Photo — grande salle, deux équipes de 20 personnes qui crient, tour de gobelets"></div>
         <div class="body">
           <div class="row"><h3>Pyramide fragile</h3><div class="price">29 $</div></div>
           <p style="font-size:13.5px" data-en="Stack, collapse, restack. It sounds simple until fourteen adults are yelling strategy at each other.">Empiler, écrouler, recommencer. Ça a l'air simple jusqu'à ce que quatorze adultes se crient des stratégies.</p>
@@ -541,7 +578,7 @@ body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
       <article class="kit">
         <span class="tag tq" data-en="Outdoor">Extérieur</span>
         <div class="zip"></div>
-        <div class="ph t2" data-ph="Photo — terrain de chalet, adultes pieds nus, ballon d'eau en plein vol"></div>
+        <div class="ph sc-cottage" role="img" aria-label="Photo — terrain de chalet, adultes pieds nus, ballon d'eau en plein vol"></div>
         <div class="body">
           <div class="row"><h3>Le grand déluge</h3><div class="price">27 $</div></div>
           <p style="font-size:13.5px" data-en="An outdoor relay that ends with someone soaked. Everyone agrees in advance who it will be. Everyone is wrong.">Une course à relais dehors qui finit avec quelqu'un de trempé. Tout le monde devine d'avance qui. Tout le monde se trompe.</p>
@@ -556,7 +593,7 @@ body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
       <article class="kit">
         <span class="tag" data-en="Holiday pack">Pack des Fêtes</span>
         <div class="zip"></div>
-        <div class="ph t4" data-ph="Photo — sous-sol de Noël, six kits ouverts sur une table, monde qui s'installe"></div>
+        <div class="ph sc-pack" role="img" aria-label="Photo — sous-sol de Noël, six kits ouverts sur une table, monde qui s'installe"></div>
         <div class="body">
           <div class="row"><h3>Le party de ma tante</h3><div class="price">119 $</div></div>
           <p style="font-size:13.5px" data-en="Six games in the right order for a holiday evening. Warm-up, peak, and a calm one for when the kids fade.">Six jeux dans le bon ordre pour une soirée des Fêtes. Un pour partir, un pour le sommet, un tranquille pour quand les enfants tombent.</p>
@@ -574,7 +611,7 @@ body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
   <!-- MEET SYLVIE -->
   <section class="sec sylvie rv">
     <div class="split">
-      <div class="ph t1" data-ph="Photo — Sylvie en pleine action, micro à la main, elle rit, la salle rit avec elle"></div>
+      <div class="ph sc-host" role="img" aria-label="Photo — Sylvie en pleine action, micro à la main, elle rit, la salle rit avec elle"></div>
       <div>
         <div class="eyebrow" style="color:var(--jaune)" data-en="Meet Sylvie">Rencontrez Sylvie</div>
         <h2 data-en="Some people organize parties. Sylvie gets them off the ground.">Certaines personnes organisent des partys. Sylvie les fait lever.</h2>
@@ -605,7 +642,7 @@ body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
       <a href="#" class="svc"><h3 data-en="Bachelorette">Bachelorette</h3><p data-en="Funny, a little cheeky, never humiliating. Sylvie reads the bride before she reads the room.">Drôle, un peu baveux, jamais humiliant. Sylvie lit la mariée avant de lire la salle.</p><span class="from" data-en="From $550 · 2h">À partir de 550 $ · 2 h</span></a>
       <a href="#" class="svc"><h3 data-en="Big groups (50+)">Grand groupe (50+)</h3><p data-en="Community halls, conferences, reunions. Sylvie brings a mic, a plan, and a backup plan for the plan.">Salles communautaires, congrès, retrouvailles. Sylvie arrive avec un micro, un plan, et un plan B pour le plan.</p><span class="from" data-en="Custom quote">Sur soumission</span></a>
     </div>
-    <div style="margin-top:32px"><a href="#" class="btn btn-ink" data-en="Let's talk about your event">Parlons de votre événement</a></div>
+    <div style="margin-top:32px"><a href="#" class="btn btn-or" data-en="Let's talk about your event">Parlons de votre événement</a></div>
   </section>
 
   <!-- SOCIAL PROOF -->
@@ -641,7 +678,7 @@ body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
       <p data-en="A game, the full instructions, and the list of what to buy — free, every month. Some people never order anything and just play the free ones. That's allowed.">Un jeu, les instructions au complet, et la liste de ce qu'il faut acheter — gratuit, chaque mois. Il y a du monde qui ne commande jamais rien et qui joue juste les gratuits. C'est permis.</p>
       <div class="nform">
         <input type="email" placeholder="votre@courriel.ca" aria-label="Courriel" data-ph-en="your@email.ca">
-        <button class="btn btn-ink" data-en="Send me a game">Envoyez-moi un jeu</button>
+        <button class="btn btn-or" data-en="Send me a game">Envoyez-moi un jeu</button>
       </div>
       <small data-en="Unsubscribe in one click. We don't share your address.">Désabonnement en un clic. On ne partage pas votre adresse.</small>
     </div>
@@ -658,12 +695,12 @@ body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
 
   <div class="pdp">
     <div class="gallery">
-      <div class="ph t1 main" data-ph="Photo principale — un homme d'âge mûr, boule de ouate sur le nez, expression de concentration absolue, salle floue derrière"></div>
+      <div class="ph sc-table main" role="img" aria-label="Photo principale — un homme d'âge mûr, boule de ouate sur le nez, expression de concentration absolue, salle floue derrière"></div>
       <div class="thumbs">
-        <div class="ph t3" data-ph="Contenu du sac étalé"></div>
-        <div class="ph t4" data-ph="Carte d'instructions, gros plan"></div>
-        <div class="ph t2" data-ph="Deux équipes en action"></div>
-        <div class="ph t1" data-ph="▶ Vidéo démo · 40 s"></div>
+        <div class="ph sc-kit" role="img" aria-label="Contenu du sac étalé"></div>
+        <div class="ph sc-card" role="img" aria-label="Carte d'instructions, gros plan"></div>
+        <div class="ph sc-teams" role="img" aria-label="Deux équipes en action"></div>
+        <div class="ph sc-video" role="img" aria-label="▶ Vidéo démo · 40 s"></div>
       </div>
     </div>
 
@@ -748,10 +785,10 @@ body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
       <p data-en="Nez à nez is high energy. These three bring the room back down without losing anyone.">« Nez à nez » monte l'énergie. Ces trois-là redescendent la salle sans perdre personne.</p>
     </div>
     <div class="grid4">
-      <article class="kit"><div class="zip"></div><div class="ph t2" data-ph="Photo — cercle assis, jeu calme"></div><div class="body"><div class="row"><h3>Ligne de vie</h3><div class="price">22 $</div></div><div class="meta"><span data-en="6–20 players">6 à 20 joueurs</span><span data-en="10 minutes">10 minutes</span></div></div></article>
-      <article class="kit"><div class="zip"></div><div class="ph t3" data-ph="Photo — duel de mimes"></div><div class="body"><div class="row"><h3>Mononcle mime</h3><div class="price">21 $</div></div><div class="meta"><span data-en="8–24 players">8 à 24 joueurs</span><span data-en="20 minutes">20 minutes</span></div></div></article>
-      <article class="kit"><div class="zip"></div><div class="ph t1" data-ph="Photo — table, spaghetti et guimauves"></div><div class="body"><div class="row"><h3>Spaghetti nerveux</h3><div class="price">26 $</div></div><div class="meta"><span data-en="4–16 players">4 à 16 joueurs</span><span data-en="15 minutes">15 minutes</span></div></div></article>
-      <article class="kit"><span class="tag" data-en="Save 15%">15 % de moins</span><div class="zip"></div><div class="ph t4" data-ph="Photo — quatre kits ensemble dans une boîte"></div><div class="body"><div class="row"><h3>Le pack complet</h3><div class="price">79 $</div></div><div class="meta"><span data-en="4 kits">4 kits</span><span data-en="~1 h">≈ 1 h</span></div></div></article>
+      <article class="kit"><div class="zip"></div><div class="ph sc-calm" role="img" aria-label="Photo — cercle assis, jeu calme"></div><div class="body"><div class="row"><h3>Ligne de vie</h3><div class="price">22 $</div></div><div class="meta"><span data-en="6–20 players">6 à 20 joueurs</span><span data-en="10 minutes">10 minutes</span></div></div></article>
+      <article class="kit"><div class="zip"></div><div class="ph sc-mime" role="img" aria-label="Photo — duel de mimes"></div><div class="body"><div class="row"><h3>Mononcle mime</h3><div class="price">21 $</div></div><div class="meta"><span data-en="8–24 players">8 à 24 joueurs</span><span data-en="20 minutes">20 minutes</span></div></div></article>
+      <article class="kit"><div class="zip"></div><div class="ph sc-table" role="img" aria-label="Photo — table, spaghetti et guimauves"></div><div class="body"><div class="row"><h3>Spaghetti nerveux</h3><div class="price">26 $</div></div><div class="meta"><span data-en="4–16 players">4 à 16 joueurs</span><span data-en="15 minutes">15 minutes</span></div></div></article>
+      <article class="kit"><span class="tag" data-en="Save 15%">15 % de moins</span><div class="zip"></div><div class="ph sc-pack" role="img" aria-label="Photo — quatre kits ensemble dans une boîte"></div><div class="body"><div class="row"><h3>Le pack complet</h3><div class="price">79 $</div></div><div class="meta"><span data-en="4 kits">4 kits</span><span data-en="~1 h">≈ 1 h</span></div></div></article>
     </div>
   </section>
 
@@ -793,7 +830,7 @@ body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
           <div><b data-en="The occasion">L'occasion</b><p data-en="What's funny at a bachelorette is a resignation letter at the office party.">Ce qui est drôle à une bachelorette, c'est une lettre de démission au party de bureau.</p></div>
         </div>
       </div>
-      <div class="ph t3" data-ph="Photo — Sylvie de dos, micro, face à une salle debout qui participe" style="border-radius:var(--radius);aspect-ratio:4/5"></div>
+      <div class="ph sc-host" role="img" aria-label="Photo — Sylvie de dos, micro, face à une salle debout qui participe" style="border-radius:var(--radius);aspect-ratio:4/5"></div>
     </div>
   </section>
 
@@ -828,7 +865,7 @@ body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
         <label><span data-en="Number of guests">Nombre d'invités</span><input type="text" placeholder="45"></label>
         <label><span data-en="Location">Lieu</span><input type="text" placeholder="Chalet, Val-des-Monts" data-ph-en="Cottage, Val-des-Monts"></label>
         <label class="full"><span data-en="What are you hoping for — and what worries you?">Vous espérez quoi — et qu'est-ce qui vous inquiète?</span><textarea rows="3" placeholder="Mon beau-frère ne participe jamais." data-ph-en="My brother-in-law never joins in."></textarea></label>
-        <div class="full"><a href="#" class="btn btn-yel" data-en="Send to Sylvie">Envoyer à Sylvie</a></div>
+        <div class="full"><a href="#" class="btn btn-or" data-en="Send to Sylvie">Envoyer à Sylvie</a></div>
       </div>
     </div>
   </section>
@@ -839,7 +876,7 @@ body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
   <footer class="foot">
     <div class="foot-grid">
       <div>
-        <div class="logo" style="font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.035em">SARABANDE</div>
+        <div class="logo" style="font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.035em">SAKIDOO <span class="studio">Studio</span></div>
         <p style="color:#B7B2C4;font-size:13.5px;max-width:30ch" data-en="Party games, ready to play. And the person who invented them, if you want her there.">Des jeux de party prêts à jouer. Et la personne qui les a inventés, si vous la voulez sur place.</p>
         <p style="margin-top:14px;font-size:12px;color:#736C8D" data-en="Gatineau, Quebec">Gatineau, Québec</p>
       </div>
@@ -863,7 +900,7 @@ body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
       </ul></div>
     </div>
     <div class="foot-bot">
-      <span data-en="© 2026 Sarabande inc. — provisional working name">© 2026 Sarabande inc. — nom de travail provisoire</span>
+      <span data-en="© 2026 Sakidoo Studio inc. — provisional working name">© 2026 Sakidoo Studio inc. — nom de travail provisoire</span>
       <span data-en="Privacy">Confidentialité</span>
       <span data-en="Terms">Conditions</span>
       <span style="margin-left:auto" data-en="Design mock-up · demo content">Maquette de design · contenu de démonstration</span>
