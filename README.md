@@ -16,4 +16,4 @@ Then open `http://localhost:8000`.
 
 ## Brand assets
 
-Approved source imagery is archived under `assets/images/source/`. Web-ready versions are kept alongside the favicon and social-sharing image in `assets/images/`. The light-background logo is derived from the approved primary logo image; the navy-background treatment is cropped directly from the approved playing-card concept, never recoloured with CSS.
+Approved source imagery is archived under `assets/images/source/`. Web-ready versions are kept alongside the favicon and social-sharing image in `assets/images/`. The header uses the approved transparent logo, while the navy-background treatment is cropped directly from the approved playing-card concept; neither is recoloured with CSS.
