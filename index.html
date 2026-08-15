@@ -1,963 +1,179 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sakidoo Studio — maquette de marque</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --jaune:#FFD84D;
-  --citron:#FFF3CC;
-  --creme:#FFFCF5;
-  --encre:#1C1830;
-  --encre-60:#5A5470;
-  --encre-30:#B7B2C4;
-  --framboise:#FF4D6D;
-  --turquoise:#17BEBB;
-  --orange:#FF7A1A;
-  --orange-fonce:#E0620C;
-  --orange-pale:#FFE2C8;
-  --rule:#E7E1D3;
-
-  --display:'Bricolage Grotesque',system-ui,sans-serif;
-  --body:'Manrope',system-ui,sans-serif;
-
-  --pad:clamp(20px,5vw,72px);
-  --radius:18px;
-}
-
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  background:#EFECE4;
-  font-family:var(--body);
-  color:var(--encre);
-  -webkit-font-smoothing:antialiased;
-}
-img{max-width:100%;display:block}
-button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
-a{color:inherit;text-decoration:none}
-:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:4px}
-
-/* ============ MOCKUP CHROME (not part of the site) ============ */
-.chrome{
-  position:sticky;top:0;z-index:200;
-  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
-  padding:10px 18px;background:#000;color:#fff;
-  font-size:12px;letter-spacing:.02em;
-}
-.chrome .brandtag{font-family:var(--display);font-weight:800;letter-spacing:-.02em;font-size:15px;color:var(--jaune)}
-.chrome .brandtag span{color:var(--orange)}
-.chrome .grp{display:flex;gap:4px;background:#fff;padding:4px;border-radius:100px}
-.chrome .grp button{padding:6px 13px;border-radius:100px;color:#000;font-weight:600;font-size:12px}
-.chrome .grp button[aria-pressed="true"]{background:var(--jaune);color:#000;box-shadow:inset 0 0 0 1.5px #000}
-.chrome .note{margin-left:auto;color:#9A93AE;font-size:11px}
-
-/* ============ DEVICE FRAME ============ */
-.stage{padding:26px var(--pad) 60px;display:flex;justify-content:center}
-.device{width:100%;max-width:1280px;background:var(--creme);border-radius:14px;overflow:hidden;box-shadow:0 30px 70px rgba(28,24,48,.22)}
-body.mobile .device{max-width:390px;border-radius:34px;border:9px solid #141020}
-body.mobile .stage{padding-top:34px}
-
-/* ============ SITE HEADER ============ */
-.site-head{
-  position:sticky;top:0;z-index:60;background:var(--creme);
-  border-bottom:1px solid var(--rule);
-}
-.head-in{display:flex;align-items:center;gap:34px;padding:16px 34px}
-.logo{font-family:var(--display);font-weight:800;font-size:23px;letter-spacing:-.035em;display:flex;align-items:center;gap:5px}
-.logo .studio{color:var(--orange)}
-.eclat{width:11px;height:11px;flex:none}
-.eclat path{fill:var(--orange)}
-.nav{display:flex;gap:26px;font-size:14px;font-weight:600}
-.nav a{padding:6px 0;border-bottom:2px solid transparent}
-.nav a:hover,.nav a.on{border-color:var(--encre)}
-.head-tools{margin-left:auto;display:flex;align-items:center;gap:16px;font-size:13px;font-weight:600}
-.lang{display:flex;align-items:center;gap:6px;color:var(--encre-60)}
-.lang button[aria-pressed="true"]{color:var(--encre);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
-.cart{display:flex;align-items:center;gap:7px;background:var(--orange);color:#fff;padding:9px 15px;border-radius:100px;font-size:12.5px}
-.burger{display:none;flex-direction:column;gap:4px;margin-left:auto}
-.burger i{display:block;width:20px;height:2px;background:var(--encre)}
-
-/* ============ TYPE SYSTEM ============ */
-.eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--encre-60)}
-h1,h2,h3{font-family:var(--display);letter-spacing:-.035em;line-height:.98;font-weight:800}
-h1{font-size:clamp(40px,5.6vw,74px)}
-h2{font-size:clamp(30px,3.6vw,46px)}
-h3{font-size:20px;letter-spacing:-.02em;line-height:1.1}
-p{line-height:1.62;color:var(--encre-60)}
-.lede{font-size:17px;color:var(--encre);max-width:52ch}
-
-.sec{padding:76px 34px}
-.sec-head{display:flex;align-items:flex-end;gap:24px;margin-bottom:34px;flex-wrap:wrap}
-.sec-head p{max-width:40ch;font-size:15px}
-.sec-head .more{margin-left:auto;font-weight:600;font-size:14px;border-bottom:2px solid var(--orange);padding-bottom:3px}
-
-/* buttons */
-.btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:100px;font-weight:700;font-size:15px;transition:transform .16s ease, box-shadow .16s ease}
-.btn:hover{transform:translateY(-2px)}
-.btn-ink{background:var(--encre);color:var(--creme);box-shadow:0 6px 0 rgba(28,24,48,.18)}
-.btn-yel{background:var(--jaune);color:var(--encre);box-shadow:0 6px 0 #E0B62B}
-.btn-or{background:var(--orange);color:#fff;box-shadow:0 6px 0 var(--orange-fonce)}
-.btn-out{border:2px solid var(--encre);padding:13px 24px}
-
-/* ============ HERO ============ */
-.hero{background:var(--jaune);padding:64px 34px 0;position:relative;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;max-width:1180px;margin:0 auto}
-.hero h1{max-width:11ch}
-.hero .lede{margin:22px 0 30px;color:#3A2F10}
-.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-.hero-proof{display:flex;gap:26px;margin:44px 0 0;padding:22px 0 30px;border-top:3px solid var(--orange);flex-wrap:wrap}
-.hero-proof div{font-size:12.5px;font-weight:600;line-height:1.4}
-.hero-proof b{display:block;font-family:var(--display);font-size:26px;letter-spacing:-.03em;color:var(--orange-fonce)}
-
-/* the bag — signature illustration */
-.bag-wrap{position:relative;padding:10px 0 46px;display:flex;justify-content:center}
-.bag{
-  width:100%;max-width:390px;aspect-ratio:5/6;border-radius:12px 12px 22px 22px;
-  background:linear-gradient(155deg,rgba(255,255,255,.72),rgba(255,255,255,.42));
-  border:1.5px solid rgba(255,255,255,.9);
-  box-shadow:0 26px 44px rgba(120,86,0,.22), inset 0 1px 0 #fff;
-  backdrop-filter:blur(2px);
-  padding:34px 22px 22px;position:relative;transform:rotate(-2.2deg)
-}
-.bag::before{
-  content:"";position:absolute;top:15px;left:16px;right:16px;height:7px;border-radius:4px;
-  background:repeating-linear-gradient(90deg,rgba(28,24,48,.34) 0 3px,transparent 3px 7px);
-}
-.bag::after{
-  content:"";position:absolute;top:11px;right:22px;width:15px;height:15px;border-radius:3px;
-  background:var(--encre);box-shadow:0 2px 4px rgba(0,0,0,.2)
-}
-.card-inside{background:var(--creme);border-radius:8px;padding:18px 16px;box-shadow:0 8px 18px rgba(120,86,0,.16);transform:rotate(1.4deg)}
-.card-inside .eyebrow{font-size:9px}
-.card-inside h4{font-family:var(--display);font-size:26px;letter-spacing:-.03em;margin:6px 0 10px}
-.card-inside ul{list-style:none;font-size:11.5px;font-weight:600;color:var(--encre-60);display:grid;gap:5px}
-.card-inside li::before{content:"◆";color:var(--orange);margin-right:7px;font-size:9px}
-.bits{position:absolute;inset:auto 22px 20px 22px;display:flex;gap:9px;align-items:flex-end;justify-content:center}
-.bits i{display:block;border-radius:50%}
-.bits i:nth-child(1){width:26px;height:26px;background:var(--orange)}
-.bits i:nth-child(2){width:17px;height:17px;background:var(--turquoise)}
-.bits i:nth-child(3){width:34px;height:34px;background:var(--encre)}
-.bits i:nth-child(4){width:20px;height:20px;background:#fff}
-.bits i:nth-child(5){width:14px;height:14px;background:var(--orange-fonce)}
-
-/* marquee */
-.marquee{background:var(--encre);color:var(--creme);overflow:hidden;padding:15px 0;white-space:nowrap}
-.marquee-in{display:inline-block;animation:slide 26s linear infinite;font-family:var(--display);font-size:20px;letter-spacing:-.02em}
-.marquee-in span{margin:0 16px;color:var(--orange)}
-.marquee-in span:nth-child(even){color:var(--jaune)}
-@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-/* ============ OCCASIONS ============ */
-.occ{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.occ a{
-  position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:3/3.4;
-  display:flex;flex-direction:column;justify-content:flex-end;padding:18px;color:#fff;
-  transition:transform .2s ease
-}
-.occ a:hover{transform:translateY(-5px)}
-.occ a::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 38%,rgba(28,24,48,.72))}
-.occ .ph{position:absolute;inset:0}
-.occ b,.occ small{position:relative;z-index:2}
-.occ b{font-family:var(--display);font-size:21px;letter-spacing:-.02em}
-.occ small{font-size:11.5px;opacity:.85;font-weight:500}
-
-/* illustrated stand-in images (generic scenes, no external files) */
-.ph{background:var(--citron);position:relative;overflow:hidden;
-    background-size:cover;background-position:center;background-repeat:no-repeat}
-.ph.t1{background-color:#FFD84D}
-.ph.t2{background-color:#17BEBB}
-.ph.t3{background-color:#FF7A1A}
-.ph.t4{background-color:#1C1830}
-
-/* around the kitchen table */
-.sc-family{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23FFD84D'/><rect y='196' width='400' height='104' fill='%23F0B92A'/><circle cx='338' cy='52' r='30' fill='%23FFF3CC'/><path d='M338 22v-16M338 98v14M308 52h-16M384 52h16' stroke='%23FFF3CC' stroke-width='5' stroke-linecap='round'/><g fill='%231C1830'><circle cx='92' cy='128' r='23'/><rect x='66' y='156' width='52' height='78' rx='26'/><circle cx='200' cy='104' r='27'/><rect x='170' y='136' width='60' height='96' rx='30'/><circle cx='308' cy='130' r='22'/><rect x='283' y='157' width='50' height='76' rx='25'/></g><ellipse cx='200' cy='272' rx='188' ry='54' fill='%23FFFCF5'/><circle cx='118' cy='266' r='17' fill='%23FF7A1A'/><circle cx='282' cy='266' r='17' fill='%2317BEBB'/><circle cx='200' cy='256' r='21' fill='%23FF7A1A' opacity='.55'/></svg>")}
-/* holiday basement */
-.sc-holiday{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%232A2350'/><path d='M0 34q100 46 200 0t200 0' stroke='%23554C86' stroke-width='3' fill='none'/><g><circle cx='60' cy='52' r='9' fill='%23FF7A1A'/><circle cx='134' cy='60' r='9' fill='%23FFD84D'/><circle cx='200' cy='58' r='9' fill='%2317BEBB'/><circle cx='268' cy='50' r='9' fill='%23FF7A1A'/><circle cx='340' cy='40' r='9' fill='%23FFD84D'/></g><path d='M330 250l-42-96h84z' fill='%2317BEBB'/><path d='M330 188l-30-66h60z' fill='%2317BEBB'/><rect x='322' y='250' width='16' height='22' fill='%23FF7A1A'/><g fill='%23FFFCF5'><circle cx='96' cy='140' r='24'/><rect x='69' y='170' width='54' height='90' rx='27'/><circle cx='188' cy='128' r='26'/><rect x='158' y='160' width='60' height='100' rx='30'/></g><path d='M96 178l-34-26M188 168l40-30' stroke='%23FFFCF5' stroke-width='11' stroke-linecap='round'/><rect y='262' width='400' height='38' fill='%23191338'/></svg>")}
-/* cottage dock */
-.sc-cottage{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23BFEFEE'/><circle cx='312' cy='62' r='34' fill='%23FFD84D'/><path d='M0 128h400v172H0z' fill='%2317BEBB'/><path d='M0 128q60-34 118-8t130-4 152 4' fill='%230E9C99' opacity='.5'/><g stroke='%23FFFCF5' stroke-width='4' opacity='.7'><path d='M40 176h84M250 200h96M120 232h74'/></g><rect x='60' y='210' width='280' height='16' rx='4' fill='%23C98A48'/><rect x='96' y='226' width='12' height='58' fill='%23A96F35'/><rect x='292' y='226' width='12' height='58' fill='%23A96F35'/><g fill='%231C1830'><circle cx='150' cy='150' r='19'/><rect x='128' y='174' width='44' height='40' rx='20'/><circle cx='236' cy='142' r='19'/><rect x='214' y='166' width='44' height='48' rx='20'/></g><path d='M236 180l38-30' stroke='%231C1830' stroke-width='9' stroke-linecap='round'/><circle cx='286' cy='142' r='14' fill='%23FF7A1A'/></svg>")}
-/* office party */
-.sc-office{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%231C1830'/><rect x='28' y='34' width='120' height='84' rx='6' fill='%232E2757'/><rect x='252' y='34' width='120' height='84' rx='6' fill='%232E2757'/><g fill='%23FF7A1A'><rect x='40' y='16' width='9' height='22' rx='4' transform='rotate(18 44 27)'/><rect x='196' y='10' width='9' height='22' rx='4'/><rect x='352' y='24' width='9' height='22' rx='4' transform='rotate(-24 356 35)'/></g><g fill='%23FFD84D'><rect x='118' y='22' width='9' height='20' rx='4' transform='rotate(-14 122 32)'/><rect x='288' y='14' width='9' height='20' rx='4' transform='rotate(28 292 24)'/></g><g fill='%23FFFCF5'><circle cx='108' cy='150' r='23'/><rect x='82' y='178' width='52' height='84' rx='26'/><circle cx='292' cy='152' r='22'/><rect x='268' y='179' width='48' height='83' rx='24'/></g><g fill='%23FFD84D'><circle cx='200' cy='118' r='25'/><rect x='172' y='148' width='56' height='72' rx='28'/></g><path d='M200 168l-42-24M200 168l42-24' stroke='%23FFD84D' stroke-width='11' stroke-linecap='round'/><rect x='150' y='220' width='100' height='16' rx='6' fill='%23FF7A1A'/><rect y='262' width='400' height='38' fill='%23120E28'/></svg>")}
-/* confetti party */
-.sc-party{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23FF7A1A'/><circle cx='68' cy='60' r='40' fill='%23FFD84D' opacity='.85'/><circle cx='344' cy='96' r='26' fill='%23FFFCF5' opacity='.6'/><g fill='%23FFFCF5'><rect x='120' y='30' width='8' height='20' rx='4' transform='rotate(24 124 40)'/><rect x='236' y='18' width='8' height='20' rx='4' transform='rotate(-32 240 28)'/><rect x='300' y='46' width='8' height='20' rx='4' transform='rotate(12 304 56)'/><rect x='40' y='140' width='8' height='20' rx='4' transform='rotate(-18 44 150)'/></g><g fill='%231C1830'><circle cx='132' cy='142' r='26'/><rect x='103' y='174' width='58' height='96' rx='29'/><circle cx='262' cy='134' r='26'/><rect x='233' y='166' width='58' height='104' rx='29'/></g><path d='M132 186l-48-30M132 186l44-34M262 178l46-32M262 178l-44-28' stroke='%231C1830' stroke-width='12' stroke-linecap='round'/><circle cx='200' cy='252' r='18' fill='%2317BEBB'/></svg>")}
-/* host with a mic */
-.sc-host{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'><rect width='400' height='500' fill='%23FFD84D'/><path d='M0 330h400v170H0z' fill='%23F0B92A'/><circle cx='68' cy='84' r='38' fill='%23FFF3CC' opacity='.8'/><g fill='%231C1830' opacity='.3'><circle cx='40' cy='330' r='24'/><circle cx='116' cy='344' r='21'/><circle cx='300' cy='340' r='21'/><circle cx='372' cy='330' r='24'/><rect x='12' y='360' width='56' height='140' rx='28'/><rect x='92' y='376' width='48' height='124' rx='24'/><rect x='276' y='372' width='48' height='128' rx='24'/><rect x='344' y='360' width='56' height='140' rx='28'/></g><g fill='%231C1830'><circle cx='196' cy='150' r='52'/><path d='M196 212c46 0 74 42 74 288H122c0-246 28-288 74-288z'/></g><path d='M144 152a52 52 0 0 1 104 0q-24-18-52-18t-52 18z' fill='%23FF7A1A'/><path d='M258 268l58-46' stroke='%231C1830' stroke-width='20' stroke-linecap='round'/><circle cx='324' cy='212' r='20' fill='%23FF7A1A'/><path d='M348 184q26 28 0 56' stroke='%23FFFCF5' stroke-width='7' fill='none' stroke-linecap='round'/><path d='M370 164q44 48 0 96' stroke='%23FFFCF5' stroke-width='7' fill='none' stroke-linecap='round' opacity='.55'/></svg>")}
-/* the kit, flat lay */
-.sc-kit{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23FFF3CC'/><rect x='58' y='40' width='190' height='230' rx='14' fill='%23FFFCF5' stroke='%231C1830' stroke-width='4'/><path d='M70 62h166' stroke='%231C1830' stroke-width='7' stroke-dasharray='7 7'/><rect x='84' y='92' width='138' height='96' rx='8' fill='%23FFD84D'/><rect x='98' y='110' width='90' height='9' rx='4' fill='%231C1830'/><rect x='98' y='130' width='110' height='7' rx='3' fill='%231C1830' opacity='.5'/><rect x='98' y='146' width='96' height='7' rx='3' fill='%231C1830' opacity='.5'/><rect x='98' y='162' width='72' height='7' rx='3' fill='%231C1830' opacity='.5'/><circle cx='112' cy='224' r='19' fill='%23FF7A1A'/><circle cx='156' cy='232' r='14' fill='%2317BEBB'/><circle cx='198' cy='224' r='17' fill='%231C1830'/><ellipse cx='312' cy='118' rx='62' ry='40' fill='%23FFFCF5' stroke='%231C1830' stroke-width='4'/><circle cx='294' cy='112' r='13' fill='%23FFFCF5' stroke='%231C1830' stroke-width='3'/><circle cx='324' cy='124' r='13' fill='%23FFFCF5' stroke='%231C1830' stroke-width='3'/><ellipse cx='312' cy='222' rx='58' ry='36' fill='%23FF7A1A'/><ellipse cx='312' cy='214' rx='38' ry='22' fill='%23FFFCF5'/></svg>")}
-/* instruction card close-up */
-.sc-card{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23FF7A1A'/><rect x='46' y='30' width='308' height='240' rx='12' fill='%23FFFCF5' transform='rotate(-2 200 150)'/><g transform='rotate(-2 200 150)'><rect x='74' y='62' width='96' height='11' rx='5' fill='%23FF7A1A'/><rect x='74' y='92' width='196' height='18' rx='6' fill='%231C1830'/><rect x='74' y='134' width='250' height='8' rx='4' fill='%231C1830' opacity='.35'/><rect x='74' y='154' width='224' height='8' rx='4' fill='%231C1830' opacity='.35'/><rect x='74' y='174' width='240' height='8' rx='4' fill='%231C1830' opacity='.35'/><rect x='74' y='210' width='72' height='28' rx='14' fill='%23FFD84D'/><rect x='158' y='210' width='72' height='28' rx='14' fill='%2317BEBB'/><rect x='242' y='210' width='72' height='28' rx='14' fill='%23FF7A1A'/></g></svg>")}
-/* two teams playing */
-.sc-teams{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%2317BEBB'/><rect y='214' width='400' height='86' fill='%230E9C99'/><g fill='%231C1830'><circle cx='72' cy='128' r='22'/><rect x='47' y='156' width='50' height='84' rx='25'/><circle cx='140' cy='142' r='20'/><rect x='118' y='168' width='44' height='74' rx='22'/></g><g fill='%23FFFCF5'><circle cx='262' cy='142' r='20'/><rect x='240' y='168' width='44' height='74' rx='22'/><circle cx='330' cy='128' r='22'/><rect x='305' y='156' width='50' height='84' rx='25'/></g><rect x='186' y='60' width='28' height='200' rx='14' fill='%23FF7A1A'/><circle cx='200' cy='46' r='20' fill='%23FFD84D'/></svg>")}
-/* big hall, large crowd */
-.sc-crowd{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%231C1830'/><rect x='120' y='26' width='160' height='58' rx='8' fill='%23FF7A1A'/><g fill='%23FFD84D' opacity='.9'><circle cx='38' cy='128' r='13'/><circle cx='96' cy='120' r='13'/><circle cx='154' cy='128' r='13'/><circle cx='212' cy='118' r='13'/><circle cx='270' cy='128' r='13'/><circle cx='328' cy='120' r='13'/><circle cx='382' cy='130' r='13'/></g><g fill='%23FFFCF5' opacity='.85'><circle cx='68' cy='186' r='15'/><circle cx='132' cy='178' r='15'/><circle cx='196' cy='188' r='15'/><circle cx='260' cy='178' r='15'/><circle cx='324' cy='188' r='15'/></g><g fill='%23FF7A1A'><circle cx='40' cy='252' r='18'/><circle cx='118' cy='244' r='18'/><circle cx='198' cy='254' r='18'/><circle cx='278' cy='244' r='18'/><circle cx='358' cy='254' r='18'/></g><g fill='%23FFFCF5' opacity='.25'><rect x='52' y='198' width='32' height='102' rx='16'/><rect x='116' y='190' width='32' height='110' rx='16'/><rect x='180' y='200' width='32' height='100' rx='16'/><rect x='244' y='190' width='32' height='110' rx='16'/><rect x='308' y='200' width='32' height='100' rx='16'/></g></svg>")}
-/* wedding reception */
-.sc-wedding{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23BFEFEE'/><path d='M96 280V150a104 104 0 0 1 208 0v130' fill='none' stroke='%23FFFCF5' stroke-width='18'/><g fill='%23FF7A1A'><circle cx='120' cy='96' r='12'/><circle cx='200' cy='58' r='12'/><circle cx='282' cy='98' r='12'/></g><g fill='%23FFD84D'><circle cx='158' cy='68' r='9'/><circle cx='244' cy='70' r='9'/></g><rect y='238' width='400' height='62' fill='%2317BEBB'/><g fill='%231C1830'><circle cx='170' cy='170' r='22'/><rect x='145' y='198' width='50' height='90' rx='25'/><circle cx='236' cy='168' r='22'/><path d='M236 192c26 0 40 30 40 96h-80c0-66 14-96 40-96z'/></g><path d='M192 216h22' stroke='%231C1830' stroke-width='10' stroke-linecap='round'/></svg>")}
-/* kids and grown-ups, ball game */
-.sc-kids{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23FFD84D'/><rect y='222' width='400' height='78' fill='%23F0B92A'/><rect x='36' y='60' width='84' height='64' rx='6' fill='%23FFF3CC'/><g fill='%231C1830'><circle cx='96' cy='166' r='24'/><rect x='68' y='196' width='56' height='92' rx='28'/><circle cx='288' cy='190' r='18'/><rect x='268' y='214' width='40' height='74' rx='20'/></g><path d='M124 206l40-28M268 226l-40-20' stroke='%231C1830' stroke-width='12' stroke-linecap='round'/><circle cx='200' cy='150' r='30' fill='%23FF7A1A'/><path d='M176 134q24 32 48 0M176 166q24-32 48 0' stroke='%23FFFCF5' stroke-width='5' fill='none'/></svg>")}
-/* quiet circle */
-.sc-calm{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%2317BEBB'/><ellipse cx='200' cy='170' rx='130' ry='84' fill='none' stroke='%23FFFCF5' stroke-width='6' opacity='.6'/><g fill='%231C1830'><circle cx='200' cy='72' r='19'/><circle cx='312' cy='132' r='19'/><circle cx='312' cy='224' r='19'/><circle cx='200' cy='268' r='19'/><circle cx='88' cy='224' r='19'/><circle cx='88' cy='132' r='19'/></g><circle cx='200' cy='170' r='30' fill='%23FF7A1A'/></svg>")}
-/* mime duel */
-.sc-mime{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23FF7A1A'/><circle cx='200' cy='140' r='96' fill='%23FFD84D' opacity='.45'/><g fill='%231C1830'><circle cx='128' cy='120' r='26'/><rect x='98' y='152' width='60' height='110' rx='30'/><circle cx='276' cy='134' r='24'/><rect x='249' y='164' width='54' height='98' rx='27'/></g><path d='M158 176l40-38M249 190l-38-30' stroke='%231C1830' stroke-width='13' stroke-linecap='round'/><path d='M196 96q10-16 20 0' stroke='%23FFFCF5' stroke-width='6' fill='none' stroke-linecap='round'/><rect y='262' width='400' height='38' fill='%23E0620C'/></svg>")}
-/* table game with props */
-.sc-table{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23FFF3CC'/><rect y='176' width='400' height='124' fill='%23E7D9A8'/><rect x='26' y='196' width='348' height='16' rx='8' fill='%23FFFCF5'/><g fill='%231C1830'><circle cx='92' cy='108' r='24'/><rect x='64' y='138' width='56' height='58' rx='28'/><circle cx='308' cy='108' r='24'/><rect x='280' y='138' width='56' height='58' rx='28'/></g><circle cx='92' cy='134' r='8' fill='%23FFFCF5'/><circle cx='308' cy='134' r='8' fill='%23FFFCF5'/><ellipse cx='200' cy='218' rx='54' ry='24' fill='%23FF7A1A'/><ellipse cx='200' cy='210' rx='34' ry='14' fill='%23FFFCF5'/><circle cx='128' cy='236' r='14' fill='%23FFFCF5' stroke='%231C1830' stroke-width='3'/><circle cx='272' cy='236' r='14' fill='%23FFFCF5' stroke='%231C1830' stroke-width='3'/></svg>")}
-/* pack of kits */
-.sc-pack{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%231C1830'/><rect x='40' y='96' width='320' height='150' rx='12' fill='%23E7D9A8'/><path d='M40 96h320l-40-46H80z' fill='%23FFF3CC'/><rect x='66' y='118' width='68' height='110' rx='8' fill='%23FFD84D'/><rect x='146' y='118' width='68' height='110' rx='8' fill='%23FF7A1A'/><rect x='226' y='118' width='68' height='110' rx='8' fill='%2317BEBB'/><rect x='306' y='118' width='34' height='110' rx='8' fill='%23FFFCF5'/><g stroke='%231C1830' stroke-width='4' stroke-dasharray='6 6'><path d='M66 140h68M146 140h68M226 140h68'/></g></svg>")}
-/* floating cards */
-.sc-cards{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%2317BEBB'/><path d='M0 196q52-22 100 0t100 0 100 0 100 0v104H0z' fill='%230E9C99'/><g stroke='%231C1830' stroke-width='4'><rect x='72' y='96' width='84' height='118' rx='10' fill='%23FFFCF5' transform='rotate(-14 114 155)'/><rect x='158' y='82' width='84' height='118' rx='10' fill='%23FFD84D' transform='rotate(3 200 141)'/><rect x='244' y='96' width='84' height='118' rx='10' fill='%23FFFCF5' transform='rotate(16 286 155)'/></g><circle cx='200' cy='134' r='18' fill='%23FF7A1A'/></svg>")}
-/* video still */
-.sc-video{background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%231C1830'/><g fill='%23FFFCF5' opacity='.22'><circle cx='96' cy='150' r='34'/><rect x='58' y='196' width='76' height='104' rx='38'/><circle cx='304' cy='150' r='34'/><rect x='266' y='196' width='76' height='104' rx='38'/></g><circle cx='200' cy='150' r='54' fill='%23FF7A1A'/><path d='M186 124l46 26-46 26z' fill='%23FFFCF5'/></svg>")}
-
-/* ============ STEPS ============ */
-.steps-sec{background:var(--citron)}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:s}
-.step{position:relative;padding-top:26px;border-top:2px solid var(--encre)}
-.step::before{
-  counter-increment:s;content:counter(s);position:absolute;top:-17px;left:0;
-  width:32px;height:32px;border-radius:50%;background:var(--orange);color:#fff;
-  display:grid;place-items:center;font-family:var(--display);font-size:15px;font-weight:700
-}
-.step h3{margin-bottom:8px}
-.step p{font-size:14px}
-
-/* ============ PRODUCT CARDS (signature device) ============ */
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.kit{
-  background:#fff;border:1px solid var(--rule);border-radius:var(--radius);overflow:hidden;
-  display:flex;flex-direction:column;transition:transform .2s ease,box-shadow .2s ease;position:relative
-}
-.kit:hover{transform:translateY(-6px);box-shadow:0 20px 34px rgba(28,24,48,.13)}
-.kit .zip{height:15px;background:var(--citron);border-bottom:1px dashed rgba(28,24,48,.32);position:relative;flex:none}
-.kit .zip::after{content:"";position:absolute;right:14px;top:3px;width:11px;height:11px;border-radius:2px;background:var(--encre)}
-.kit .ph{aspect-ratio:4/3}
-.kit .body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
-.kit h3{font-size:19px}
-.kit .price{font-family:var(--display);font-size:19px;letter-spacing:-.02em}
-.kit .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.meta{display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;border-top:1px solid var(--rule);padding-top:11px;margin-top:auto}
-.meta span{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--encre-60);display:flex;align-items:center;gap:6px}
-.meta span::before{content:"";width:5px;height:5px;background:var(--orange);border-radius:50%;flex:none}
-.tag{position:absolute;top:26px;left:14px;z-index:3;background:var(--orange);color:#fff;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:5px 10px;border-radius:100px}
-.tag.tq{background:var(--turquoise);color:#04302F}
-.tag.ink{background:var(--encre)}
-.kit .add{margin-top:4px;width:100%;justify-content:center;padding:12px}
-
-/* ============ SYLVIE ============ */
-.sylvie{background:var(--encre);color:var(--creme)}
-.sylvie p{color:#C9C3DC}
-.split{display:grid;grid-template-columns:1fr 1.1fr;gap:52px;align-items:center}
-.sylvie .ph{border-radius:var(--radius);aspect-ratio:4/4.6}
-.sylvie h2{font-size:clamp(32px,4vw,54px);margin:14px 0 20px}
-.sylvie .quote{font-family:var(--display);font-size:22px;line-height:1.24;letter-spacing:-.02em;color:var(--orange);margin:26px 0;padding-left:20px;border-left:3px solid var(--orange)}
-.sign{font-family:var(--display);font-size:30px;color:var(--jaune);letter-spacing:-.03em;transform:rotate(-3deg);display:inline-block;margin-top:8px}
-
-/* ============ SERVICES CARDS ============ */
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.svc{border:2px solid var(--encre);border-radius:var(--radius);padding:24px;background:var(--creme);display:flex;flex-direction:column;gap:9px;transition:background .18s ease}
-.svc:hover{background:var(--orange-pale);border-color:var(--orange)}
-.svc h3{font-size:22px}
-.svc p{font-size:14px}
-.svc .from{margin-top:auto;padding-top:14px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--encre-60)}
-
-/* ============ TESTIMONIALS ============ */
-.demo-flag{display:inline-flex;align-items:center;gap:7px;background:rgba(28,24,48,.07);border:1px dashed var(--encre-30);color:var(--encre-60);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:100px;margin-bottom:22px}
-.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.quo{background:#fff;border-radius:var(--radius);padding:26px;border:1px solid var(--rule);border-top:4px solid var(--orange);display:flex;flex-direction:column;gap:14px}
-.quo blockquote{font-family:var(--display);font-size:21px;line-height:1.22;letter-spacing:-.02em}
-.quo cite{font-style:normal;font-size:12.5px;font-weight:600;color:var(--encre-60);margin-top:auto}
-
-/* ============ COMING SOON ============ */
-.soon{background:var(--turquoise);color:#04302F;border-radius:26px;padding:44px;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
-.soon h2{color:#04302F}
-.soon p{color:rgba(4,48,47,.78)}
-.pill{display:inline-block;background:#04302F;color:var(--turquoise);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border-radius:100px;margin-bottom:16px}
-.floatcards{position:relative;height:230px}
-.floatcards i{position:absolute;width:104px;height:146px;border-radius:11px;background:var(--creme);border:2px solid #04302F;display:block;box-shadow:0 12px 22px rgba(4,48,47,.24)}
-.floatcards i:nth-child(1){left:6%;top:34px;transform:rotate(-13deg)}
-.floatcards i:nth-child(2){left:33%;top:12px;transform:rotate(4deg);background:var(--jaune)}
-.floatcards i:nth-child(3){left:60%;top:40px;transform:rotate(15deg)}
-
-/* ============ NEWSLETTER ============ */
-.news{background:var(--jaune);border-radius:26px;padding:52px 44px;text-align:center}
-.news h2{max-width:19ch;margin:0 auto 14px}
-.news p{color:#3A2F10;max-width:46ch;margin:0 auto}
-.nform{display:flex;gap:10px;max-width:470px;margin:26px auto 12px}
-.nform input{flex:1;padding:15px 20px;border-radius:100px;border:2px solid var(--encre);background:var(--creme);font:inherit;font-size:15px}
-.news small{font-size:12px;color:#4A3C15}
-
-/* ============ FOOTER ============ */
-.foot{background:var(--encre);color:#B7B2C4;padding:56px 34px 30px;font-size:13.5px}
-.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px;margin-bottom:38px}
-.foot h4{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:var(--orange);margin-bottom:14px;font-weight:600;font-family:var(--body)}
-.foot ul{list-style:none;display:grid;gap:9px}
-.foot .logo{color:var(--creme);margin-bottom:12px}
-.foot-bot{border-top:1px solid rgba(255,255,255,.13);padding-top:20px;display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:#736C8D}
-
-/* ============ PRODUCT PAGE ============ */
-.crumb{padding:20px 34px 0;font-size:12.5px;color:var(--encre-60);font-weight:500}
-.pdp{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;padding:26px 34px 60px}
-.gallery{display:grid;gap:10px;align-content:start}
-.gallery .main{aspect-ratio:4/3.2;border-radius:var(--radius)}
-.gallery .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.gallery .thumbs .ph{aspect-ratio:1;border-radius:11px}
-.pdp h1{font-size:clamp(34px,4.2vw,50px);margin:10px 0 14px}
-.pdp .price-big{font-family:var(--display);font-size:32px;letter-spacing:-.03em;margin:18px 0}
-.specs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin:22px 0}
-.specs div{background:var(--creme);padding:14px 16px}
-.specs dt{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--encre-60);margin-bottom:4px}
-.specs dd{font-family:var(--display);font-size:17px;letter-spacing:-.02em}
-.included{background:var(--orange-pale);border-radius:14px;padding:22px;margin:22px 0}
-.included h3{font-size:17px;margin-bottom:12px}
-.included ul{list-style:none;display:grid;gap:8px;font-size:14px;font-weight:500}
-.included li::before{content:"✦";color:var(--orange);margin-right:9px}
-.acc{border-top:1px solid var(--rule)}
-.acc details{border-bottom:1px solid var(--rule)}
-.acc summary{padding:17px 0;font-weight:700;font-size:15px;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
-.acc summary::after{content:"+";font-family:var(--display);font-size:20px;color:var(--orange)}
-.acc details[open] summary::after{content:"–"}
-.acc p{font-size:14px;padding-bottom:17px}
-.sheet{background:#fff;border:1px solid var(--rule);border-radius:var(--radius);padding:26px;margin:0 34px 60px}
-.sheet .zipline{height:9px;border-radius:4px;background:repeating-linear-gradient(90deg,rgba(28,24,48,.28) 0 4px,transparent 4px 9px);margin-bottom:22px}
-.sheet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
-.sheet-grid h4{font-family:var(--display);font-size:15px;letter-spacing:0;text-transform:uppercase;margin-bottom:9px}
-.sheet-grid p,.sheet-grid li{font-size:13.5px;color:var(--encre-60);line-height:1.6}
-.sheet-grid ol{padding-left:17px;display:grid;gap:6px}
-.stickybuy{display:none}
-
-/* ============ SERVICES PAGE ============ */
-.svc-hero{background:var(--orange);color:#fff;padding:64px 34px}
-.svc-hero h1{max-width:14ch}
-.svc-hero p{color:rgba(255,255,255,.9)}
-.svc-hero .lede{color:#fff}
-.adapt{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.adapt div{border-radius:14px;padding:20px;background:var(--citron);border-left:4px solid var(--orange)}
-.adapt b{font-family:var(--display);font-size:17px;display:block;margin-bottom:6px;letter-spacing:-.02em}
-.adapt p{font-size:13.5px}
-.form{background:var(--encre);color:var(--creme);border-radius:26px;padding:44px;display:grid;grid-template-columns:.9fr 1.1fr;gap:44px}
-.form p{color:#C9C3DC}
-.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.fields label{display:grid;gap:6px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#B7B2C4}
-.fields input,.fields select,.fields textarea{padding:13px 15px;border-radius:11px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;font:inherit;font-size:14.5px}
-.fields .full{grid-column:1/-1}
-.tl{display:grid;gap:0}
-.tl div{padding:20px 0 20px 28px;border-left:2px solid var(--orange);position:relative}
-.tl div::before{content:"";position:absolute;left:-7px;top:26px;width:12px;height:12px;border-radius:50%;background:var(--orange);border:2px solid var(--creme)}
-.tl b{font-family:var(--display);font-size:19px;letter-spacing:-.02em;display:block;margin-bottom:5px}
-.tl p{font-size:14px}
-
-/* reveal */
-.rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
-.rv.in{opacity:1;transform:none}
-
-/* ============ RESPONSIVE / MOBILE ============ */
-@media (max-width:900px){ body:not(.mobile) .device{max-width:100%} }
-
-body.mobile .nav{display:none}
-body.mobile .burger{display:flex}
-body.mobile .head-in{padding:13px 18px;gap:12px}
-body.mobile .logo{font-size:17px}
-body.mobile .head-tools{gap:10px}
-body.mobile .cart{padding:8px 12px;white-space:nowrap}
-body.mobile .sec{padding:44px 18px}
-body.mobile .hero{padding:36px 18px 0}
-body.mobile .hero-grid,body.mobile .split,body.mobile .soon,body.mobile .pdp,body.mobile .form{grid-template-columns:1fr;gap:26px}
-body.mobile .hero h1{font-size:38px;max-width:none}
-body.mobile .hero .lede{font-size:15.5px}
-body.mobile .hero-ctas{flex-direction:column;align-items:stretch}
-body.mobile .hero-ctas .btn{justify-content:center}
-body.mobile .hero-ctas .btn-out{border:0;box-shadow:none;text-decoration:underline;text-underline-offset:4px;padding:6px}
-body.mobile .hero-proof{gap:16px;margin-top:30px}
-body.mobile .hero-proof b{font-size:21px}
-body.mobile .bag-wrap{padding-bottom:32px}
-body.mobile .grid3,body.mobile .quotes,body.mobile .steps,body.mobile .adapt,body.mobile .sheet-grid,body.mobile .foot-grid{grid-template-columns:1fr;gap:16px}
-body.mobile .grid4{grid-template-columns:1fr 1fr;gap:11px}
-body.mobile .kit .meta span:nth-child(n+3){display:none}
-body.mobile .kit h3{font-size:15px}
-body.mobile .kit .price{font-size:15px}
-body.mobile .kit .add{display:none}
-body.mobile .kit .body{padding:12px}
-body.mobile .occ{display:flex;gap:11px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -18px;padding:0 18px 10px;-webkit-overflow-scrolling:touch}
-body.mobile .occ a{flex:0 0 152px;scroll-snap-align:start;aspect-ratio:3/3.6}
-body.mobile .news,body.mobile .form,body.mobile .soon{padding:30px 20px;border-radius:20px}
-body.mobile .nform{flex-direction:column}
-body.mobile .nform input{text-align:center}
-body.mobile .fields{grid-template-columns:1fr}
-body.mobile .specs{grid-template-columns:1fr 1fr}
-body.mobile .pdp{padding:18px 18px 100px}
-body.mobile .sheet{margin:0 18px 100px;padding:20px}
-body.mobile .floatcards{height:190px}
-body.mobile .marquee-in{font-size:16px}
-body.mobile .stickybuy{
-  display:flex;position:sticky;bottom:0;z-index:70;align-items:center;gap:12px;
-  background:var(--creme);border-top:1px solid var(--rule);padding:12px 18px;
-  box-shadow:0 -8px 22px rgba(28,24,48,.09)
-}
-body.mobile .stickybuy .p{font-family:var(--display);font-size:20px;letter-spacing:-.02em}
-body.mobile .stickybuy .btn{flex:1;justify-content:center;padding:14px}
-
-@media (prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important}
-  .rv{opacity:1;transform:none}
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sakidoo Studio | Du fun prêt à jouer</title>
+  <meta name="description" content="Des jeux prêts à jouer pour les familles, les amis et les rassemblements. Sakidoo prépare les jeux; vous profitez du monde autour de vous.">
+  <link rel="canonical" href="https://sakidoostudio.com/">
+  <meta name="theme-color" content="#17233f">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_CA">
+  <meta property="og:locale:alternate" content="en_CA">
+  <meta property="og:site_name" content="Sakidoo Studio">
+  <meta property="og:title" content="Sakidoo Studio | Du fun prêt à jouer">
+  <meta property="og:description" content="Des jeux prêts à jouer pour profiter pleinement du monde autour de vous.">
+  <meta property="og:url" content="https://sakidoostudio.com/">
+  <meta property="og:image" content="https://sakidoostudio.com/assets/images/sakidoo-social-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Les cartes à jouer colorées de Sakidoo Studio">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://sakidoostudio.com/assets/images/sakidoo-social-preview.jpg">
+  <link rel="icon" href="assets/images/sakidoo-icon.png" type="image/png">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Organization","name":"Sakidoo Studio","url":"https://sakidoostudio.com/","description":"Entreprise québécoise qui crée des jeux prêts à jouer pour les rassemblements."}
+  </script>
 </head>
 <body>
+  <a class="skip-link" href="#main" data-fr="Aller au contenu" data-en="Skip to content">Aller au contenu</a>
 
-<!-- ============ MOCKUP CONTROLS ============ -->
-<div class="chrome">
-  <div class="brandtag">SAKIDOO <span>Studio</span></div>
-  <div class="grp" role="group" aria-label="Pages">
-    <button data-page="home" aria-pressed="true">Accueil</button>
-    <button data-page="pdp" aria-pressed="false">Fiche produit</button>
-    <button data-page="svc" aria-pressed="false">Animation</button>
-  </div>
-  <div class="grp" role="group" aria-label="Appareil">
-    <button data-dev="desk" aria-pressed="true">Bureau</button>
-    <button data-dev="mob" aria-pressed="false">Mobile</button>
-  </div>
-  <div class="note">Nom de travail provisoire · témoignages fictifs</div>
-</div>
-
-<div class="stage">
-<div class="device">
-
-  <!-- ============ SITE HEADER ============ -->
-  <header class="site-head">
-    <div class="head-in">
-      <a href="#" class="logo">SAKIDOO<span class="studio">Studio</span>
-        <svg class="eclat" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c.9 7.4 3.7 10.7 12 12-8.3 1.3-11.1 4.6-12 12-.9-7.4-3.7-10.7-12-12C8.3 10.7 11.1 7.4 12 0z"/></svg>
+  <header class="site-header" data-header>
+    <div class="shell header-inner">
+      <a class="brand-logo brand-logo--header" href="#top" aria-label="Sakidoo Studio — accueil" data-aria-fr="Sakidoo Studio — accueil" data-aria-en="Sakidoo Studio — home">
+        <img src="assets/images/sakidoo-logo-light.png" width="900" height="450" alt="Sakidoo Studio">
       </a>
-      <nav class="nav">
-        <a href="#" class="on" data-en="Games">Les jeux</a>
-        <a href="#" data-en="Collections">Collections</a>
-        <a href="#" data-en="Book Sylvie">Animation</a>
-        <a href="#" data-en="Sylvie">Sylvie</a>
-        <a href="#" data-en="Ideas">Idées</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-toggle>
+        <span class="sr-only" data-fr="Ouvrir le menu" data-en="Open menu">Ouvrir le menu</span>
+        <span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+      <nav class="primary-nav" id="primary-nav" aria-label="Navigation principale" data-aria-fr="Navigation principale" data-aria-en="Primary navigation" data-nav>
+        <a href="#jeux" data-fr="Les jeux" data-en="The games">Les jeux</a>
+        <a href="#occasions" data-fr="Les occasions" data-en="Occasions">Les occasions</a>
+        <a href="#histoire" data-fr="Notre histoire" data-en="Our story">Notre histoire</a>
+        <a class="nav-cta" href="#decouvrir" data-fr="Découvrir" data-en="Discover">Découvrir</a>
       </nav>
-      <button class="burger" aria-label="Menu"><i></i><i></i><i></i></button>
-      <div class="head-tools">
-        <div class="lang">
-          <button data-lang="fr" aria-pressed="true">FR</button><span>|</span><button data-lang="en" aria-pressed="false">EN</button>
-        </div>
-        <a href="#" class="cart" data-en="Cart · 0">Panier · 0</a>
+      <div class="language" role="group" aria-label="Choisir la langue" data-aria-fr="Choisir la langue" data-aria-en="Choose language">
+        <button type="button" data-lang="fr" aria-pressed="true" lang="fr">FR</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
       </div>
     </div>
   </header>
 
-<!-- ================================================================ -->
-<!-- PAGE 1 — ACCUEIL                                                  -->
-<!-- ================================================================ -->
-<main id="page-home">
-
-  <section class="hero">
-    <div class="hero-grid">
-      <div>
-        <div class="eyebrow" data-en="Party games, ready to play · Quebec">Jeux de party prêts à jouer · Québec</div>
-        <h1 style="margin-top:14px" data-en="You're allowed to be a guest at your own party.">Vous avez le droit d'être un invité à votre propre party.</h1>
-        <p class="lede" data-en="Sylvie has been running games at family reunions, office parties and cottage weekends for twenty years. She put the good ones in a bag, with a card that explains everything. Open it, and you're the fun one.">Sylvie fait jouer du monde depuis vingt ans — réunions de famille, partys de bureau, fins de semaine au chalet. Elle a mis ses meilleurs jeux dans un sac, avec une carte qui explique tout. Vous ouvrez, et c'est vous le fun.</p>
-        <div class="hero-ctas">
-          <a href="#" class="btn btn-ink" data-en="Browse the games">Découvrir les jeux</a>
-          <a href="#" class="btn btn-or" data-en="Book Sylvie for your event">Réserver Sylvie</a>
-        </div>
-        <div class="hero-proof">
-          <div><b>38</b><span data-en="games tested on real crowds">jeux testés sur du vrai monde</span></div>
-          <div><b>0</b><span data-en="things left for you to buy">chose à acheter en plus</span></div>
-          <div><b>4&nbsp;à&nbsp;130</b><span data-en="players, depending on the kit">joueurs, selon le kit</span></div>
-        </div>
-      </div>
-      <div class="bag-wrap">
-        <div class="bag">
-          <div class="card-inside">
-            <div class="eyebrow" data-en="Kit nº 07 · 6–12 players">Kit nº 07 · 6 à 12 joueurs</div>
-            <h4>Nez à nez</h4>
-            <ul>
-              <li data-en="Everything's in the bag">Tout est dans le sac</li>
-              <li data-en="Rules explained in 30 seconds">Règles expliquées en 30 secondes</li>
-              <li data-en="Three variations included">Trois variantes incluses</li>
-              <li data-en="Nobody has to be sober">Personne n'a besoin d'être à jeun</li>
-            </ul>
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="corner corner--coral" aria-hidden="true"></div>
+      <div class="corner corner--aqua" aria-hidden="true"></div>
+      <div class="shell hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow" data-fr="Des jeux imaginés au Québec" data-en="Games imagined in Quebec">Des jeux imaginés au Québec</p>
+          <h1 id="hero-title" data-fr="Du fun prêt à jouer." data-en="Ready-to-play fun.">Du fun prêt à jouer.</h1>
+          <p class="hero-lede" data-fr="Sakidoo prépare les jeux. Vous profitez du monde autour de vous." data-en="Sakidoo prepares the games. You enjoy the people around you.">Sakidoo prépare les jeux. Vous profitez du monde autour de vous.</p>
+          <div class="button-row">
+            <a class="button button--primary" href="#jeux" data-fr="Voir les jeux" data-en="See the games">Voir les jeux</a>
+            <a class="text-link" href="#comment" data-fr="Comment ça marche" data-en="How it works">Comment ça marche <span aria-hidden="true">↓</span></a>
           </div>
-          <div class="bits"><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="hero-art hero-photo reveal">
+          <img src="assets/images/sakidoo-brand-merchandise.jpg" width="1448" height="1086" fetchpriority="high" decoding="async" alt="Chandail blanc, tasse et casquette portant le logo coloré Sakidoo Studio" data-alt-fr="Chandail blanc, tasse et casquette portant le logo coloré Sakidoo Studio" data-alt-en="White sweatshirt, mug, and cap featuring the colourful Sakidoo Studio logo">
         </div>
       </div>
-    </div>
-  </section>
+      <div class="ticker" aria-hidden="true"><div>Rassembler <i>✦</i> Jouer <i>✦</i> Rire <i>✦</i> Recommencer <i>✦</i> Rassembler <i>✦</i> Jouer <i>✦</i> Rire <i>✦</i> Recommencer <i>✦</i></div></div>
+    </section>
 
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-in">
-      Ouvrez <span>✦</span> Comprenez <span>✦</span> Jouez <span>✦</span> Riez <span>✦</span>
-      Ouvrez <span>✦</span> Comprenez <span>✦</span> Jouez <span>✦</span> Riez <span>✦</span>
-      Ouvrez <span>✦</span> Comprenez <span>✦</span> Jouez <span>✦</span> Riez <span>✦</span>
-      Ouvrez <span>✦</span> Comprenez <span>✦</span> Jouez <span>✦</span> Riez <span>✦</span>
-    </div>
-  </div>
-
-  <!-- OCCASIONS -->
-  <section class="sec rv">
-    <div class="sec-head">
-      <div>
-        <div class="eyebrow" data-en="Shop by occasion">Magasiner par occasion</div>
-        <h2 style="margin-top:10px" data-en="What are you hosting?">Vous recevez pour quoi?</h2>
+    <section class="section intro" id="comment" aria-labelledby="intro-title">
+      <div class="shell intro-grid">
+        <div class="section-heading reveal">
+          <p class="eyebrow" data-fr="Recevoir sans se compliquer la vie" data-en="Hosting made easier">Recevoir sans se compliquer la vie</p>
+          <h2 id="intro-title" data-fr="Le jeu est prêt. La place est à vous." data-en="The game is ready. The moment is yours.">Le jeu est prêt. La place est à vous.</h2>
+        </div>
+        <div class="steps" role="list">
+          <article role="listitem" class="reveal"><span>01</span><h3 data-fr="Ouvrez" data-en="Open">Ouvrez</h3><p data-fr="Tout ce qu’il faut pour commencer est rassemblé et expliqué clairement." data-en="Everything you need to get started is together and clearly explained.">Tout ce qu’il faut pour commencer est rassemblé et expliqué clairement.</p></article>
+          <article role="listitem" class="reveal"><span>02</span><h3 data-fr="Jouez" data-en="Play">Jouez</h3><p data-fr="Moins de préparation, moins d’improvisation, plus de temps avec votre monde." data-en="Less prep, less improvising, more time with your people.">Moins de préparation, moins d’improvisation, plus de temps avec votre monde.</p></article>
+          <article role="listitem" class="reveal"><span>03</span><h3 data-fr="Profitez" data-en="Enjoy">Profitez</h3><p data-fr="L’hôte peut enfin participer au lieu de tout organiser en coulisses." data-en="The host finally gets to join in instead of organizing from the sidelines.">L’hôte peut enfin participer au lieu de tout organiser en coulisses.</p></article>
+        </div>
       </div>
-      <p data-en="Each collection is a set of games chosen to work together — pacing, energy and group size already thought through.">Chaque collection est une suite de jeux choisis pour aller ensemble — le rythme, l'énergie et la taille du groupe sont déjà pensés.</p>
-      <a href="#" class="more" data-en="All collections →">Toutes les collections →</a>
-    </div>
-    <div class="occ">
-      <a href="#"><div class="ph sc-family" role="img" aria-label="Photo — trois générations autour d'une table de cuisine, quelqu'un rit fort"></div><b data-en="Family">Famille</b><small data-en="8 kits · ages 6 to 80">8 kits · de 6 à 80 ans</small></a>
-      <a href="#"><div class="ph sc-holiday" role="img" aria-label="Photo — sous-sol décoré, adultes en pyjama de Noël, chaos joyeux"></div><b data-en="The Holidays">Temps des Fêtes</b><small data-en="11 kits · big groups">11 kits · gros groupes</small></a>
-      <a href="#"><div class="ph sc-cottage" role="img" aria-label="Photo — quai de chalet, fin de journée, gang qui joue dans l'eau"></div><b data-en="At the cottage">Au chalet</b><small data-en="9 kits · indoor + outdoor">9 kits · intérieur + extérieur</small></a>
-      <a href="#"><div class="ph sc-office" role="img" aria-label="Photo — collègues en salle de conférence, cravates défaites, quelqu'un debout sur une chaise"></div><b data-en="Office party">Party de bureau</b><small data-en="7 kits · no alcohol needed">7 kits · sans alcool requis</small></a>
-      <a href="#"><div class="ph sc-party" role="img" aria-label="Photo — bachelorette, confettis, rire de groupe non posé"></div><b data-en="Bachelorette">Bachelorette</b><small data-en="6 kits · 18+">6 kits · 18 ans +</small></a>
-      <a href="#"><div class="ph sc-kids" role="img" aria-label="Photo — enfants et adultes mélangés, jeu de ballon dans un salon"></div><b data-en="Birthday">Anniversaire</b><small data-en="10 kits · all ages">10 kits · tous les âges</small></a>
-      <a href="#"><div class="ph sc-wedding" role="img" aria-label="Photo — réception de mariage, invités qui participent, robe et espadrilles"></div><b data-en="Wedding">Mariage</b><small data-en="5 kits · reception">5 kits · réception</small></a>
-      <a href="#"><div class="ph sc-crowd" role="img" aria-label="Photo — salle communautaire pleine, 100 personnes, énergie haute"></div><b data-en="Big group">Grand groupe</b><small data-en="4 kits · 50 players +">4 kits · 50 joueurs +</small></a>
-    </div>
-  </section>
+    </section>
 
-  <!-- HOW IT WORKS -->
-  <section class="sec steps-sec rv">
-    <div class="sec-head">
-      <div>
-        <div class="eyebrow" data-en="How it works">Comment ça marche</div>
-        <h2 style="margin-top:10px" data-en="The hard part is already done.">Le difficile est déjà fait.</h2>
+    <section class="section occasions" id="occasions" aria-labelledby="occasions-title">
+      <div class="shell">
+        <div class="section-heading section-heading--row reveal">
+          <div><p class="eyebrow" data-fr="Pour la vraie vie" data-en="Made for real life">Pour la vraie vie</p><h2 id="occasions-title" data-fr="Il y a toujours une bonne raison de jouer." data-en="There’s always a good reason to play.">Il y a toujours une bonne raison de jouer.</h2></div>
+          <p data-fr="Des grandes tablées aux soirées improvisées, les jeux Sakidoo sont pensés pour les moments où le monde se retrouve." data-en="From big family tables to last-minute evenings, Sakidoo games are made for the moments when people come together.">Des grandes tablées aux soirées improvisées, les jeux Sakidoo sont pensés pour les moments où le monde se retrouve.</p>
+        </div>
+        <div class="occasion-grid">
+          <article class="occasion occasion--family reveal"><span aria-hidden="true">☺</span><h3 data-fr="En famille" data-en="With family">En famille</h3><p data-fr="Réunions, anniversaires et grandes tablées." data-en="Reunions, birthdays, and full tables.">Réunions, anniversaires et grandes tablées.</p></article>
+          <article class="occasion occasion--holiday reveal"><span aria-hidden="true">✶</span><h3 data-fr="Aux Fêtes" data-en="For the holidays">Aux Fêtes</h3><p data-fr="Quand plusieurs générations se retrouvent." data-en="When several generations get together.">Quand plusieurs générations se retrouvent.</p></article>
+          <article class="occasion occasion--cottage reveal"><span aria-hidden="true">∿</span><h3 data-fr="Au chalet" data-en="At the cottage">Au chalet</h3><p data-fr="Les longues fins de semaine qui méritent un peu de chaos." data-en="Long weekends that deserve a little chaos.">Les longues fins de semaine qui méritent un peu de chaos.</p></article>
+          <article class="occasion occasion--friends reveal"><span aria-hidden="true">✦</span><h3 data-fr="Entre amis" data-en="With friends">Entre amis</h3><p data-fr="Partys, bachelorettes ou un mardi sans raison." data-en="Parties, bachelorettes, or a Tuesday for no reason.">Partys, bachelorettes ou un mardi sans raison.</p></article>
+          <article class="occasion occasion--work reveal"><span aria-hidden="true">+</span><h3 data-fr="Avec l’équipe" data-en="With the team">Avec l’équipe</h3><p data-fr="Des partys de bureau où tout le monde a sa place." data-en="Work parties where everyone has a place.">Des partys de bureau où tout le monde a sa place.</p></article>
+        </div>
       </div>
-      <p data-en="The reason most party games never get played isn't the game. It's that nobody wants to be the person explaining the rules.">Si la plupart des jeux de party ne se jouent jamais, ce n'est pas la faute du jeu. C'est que personne ne veut être la personne qui explique les règles.</p>
-    </div>
-    <div class="steps">
-      <div class="step"><h3 data-en="Pick your game">Choisissez votre jeu</h3><p data-en="Filter by group size, time and energy level. Or take a whole collection and stop thinking about it.">Filtrez par nombre de personnes, durée et niveau d'énergie. Ou prenez une collection au complet et arrêtez d'y penser.</p></div>
-      <div class="step"><h3 data-en="It arrives complete">Ça arrive complet</h3><p data-en="Every accessory, counted for your group size. No trip to the dollar store the night before.">Tous les accessoires, comptés pour votre nombre de joueurs. Aucun détour au magasin à une piasse la veille.</p></div>
-      <div class="step"><h3 data-en="Open the bag">Ouvrez le sac</h3><p data-en="The card on top tells you the setup, the rules, the timing and three variations. Hand it to anyone.">La carte sur le dessus donne le montage, les règles, le minutage et trois variantes. Donnez-la à n'importe qui.</p></div>
-      <div class="step"><h3 data-en="Play. Then watch.">Jouez. Puis regardez.</h3><p data-en="This is the part where your brother-in-law surprises everyone. We can't ship that, but we make it likely.">C'est le moment où votre beau-frère surprend tout le monde. Ça, on ne peut pas l'expédier — mais on le rend probable.</p></div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FEATURED KITS -->
-  <section class="sec rv">
-    <div class="sec-head">
-      <div>
-        <div class="eyebrow" data-en="Featured kits">Kits vedettes</div>
-        <h2 style="margin-top:10px" data-en="The ones that never fail">Ceux qui ne manquent jamais leur coup</h2>
+    <section class="section games" id="jeux" aria-labelledby="games-title">
+      <div class="shell games-grid">
+        <div class="games-visual reveal" aria-hidden="true">
+          <div class="kit-sheet kit-sheet--one"><i></i><i></i><i></i></div>
+          <div class="kit-sheet kit-sheet--two"><strong>Sakidoo</strong><span>Prêt à jouer</span></div>
+          <div class="kit-dot"></div>
+        </div>
+        <div class="games-copy reveal">
+          <p class="eyebrow" data-fr="Les premiers kits se préparent" data-en="The first kits are taking shape">Les premiers kits se préparent</p>
+          <h2 id="games-title" data-fr="Des idées testées autour de vraies tablées." data-en="Ideas tested around real tables.">Des idées testées autour de vraies tablées.</h2>
+          <p data-fr="Chaque kit Sakidoo est conçu pour rendre le départ simple : du matériel regroupé, des consignes faciles à suivre et une activité qui laisse toute la place au monde autour de vous." data-en="Every Sakidoo kit is designed to make getting started simple: materials gathered together, easy-to-follow instructions, and an activity that leaves room for the people around you.">Chaque kit Sakidoo est conçu pour rendre le départ simple : du matériel regroupé, des consignes faciles à suivre et une activité qui laisse toute la place au monde autour de vous.</p>
+          <div class="status-pill"><span aria-hidden="true"></span><b data-fr="Collection en préparation" data-en="Collection in development">Collection en préparation</b></div>
+          <a class="button button--navy" href="#histoire" data-fr="Découvrir notre histoire" data-en="Discover our story">Découvrir notre histoire</a>
+        </div>
       </div>
-      <a href="#" class="more" data-en="All 38 games →">Les 38 jeux →</a>
-    </div>
-    <div class="grid4">
+    </section>
 
-      <article class="kit">
-        <span class="tag" data-en="Bestseller">Plus populaire</span>
-        <div class="zip"></div>
-        <div class="ph sc-table" role="img" aria-label="Photo — homme d'âge mûr avec une boule de ouate sur le nez, très concentré"></div>
-        <div class="body">
-          <div class="row"><h3>Nez à nez</h3><div class="price">24 $</div></div>
-          <p style="font-size:13.5px" data-en="Move the cotton ball from the bowl to your teammate's plate. With your nose. That's the whole game.">Transférer la ouate du bol à l'assiette de votre coéquipier. Avec le nez. C'est tout le jeu.</p>
-          <div class="meta">
-            <span data-en="6–12 players">6 à 12 joueurs</span><span data-en="15 minutes">15 minutes</span>
-            <span data-en="Indoor">Intérieur</span><span data-en="Ages 12+">12 ans +</span>
+    <section class="section two-decks" aria-labelledby="decks-title">
+      <div class="corner corner--yellow" aria-hidden="true"></div>
+      <div class="shell decks-grid">
+        <div class="decks-copy reveal">
+          <p class="eyebrow eyebrow--light" data-fr="Un petit plus qui voyage" data-en="A little something that travels">Un petit plus qui voyage</p>
+          <h2 id="decks-title" data-fr="Deux paquets. Toujours." data-en="Two decks. Always.">Deux paquets. Toujours.</h2>
+          <div class="deck-lines">
+            <p><strong data-fr="Un pour vous." data-en="One for you.">Un pour vous.</strong><span data-fr="Un vrai paquet de cartes, utile bien après la première soirée." data-en="A real deck of cards, useful long after the first gathering.">Un vrai paquet de cartes, utile bien après la première soirée.</span></p>
+            <p><strong data-fr="Un pour quelqu’un que vous aimez bien." data-en="One for someone you like.">Un pour quelqu’un que vous aimez bien.</strong><span data-fr="À donner à un ami ou à un membre de la famille, juste pour faire circuler le fun." data-en="Pass it to a friend or family member, simply to keep the fun moving.">À donner à un ami ou à un membre de la famille, juste pour faire circuler le fun.</span></p>
           </div>
-          <a href="#" class="btn btn-yel add" data-en="Add to cart">Ajouter au panier</a>
+          <p class="decks-note" data-fr="Chaque commande Sakidoo est prévue avec deux jeux complets de cartes standards — un geste simple, sans code ni programme de référence. L’adresse sakidoostudio.com apparaîtra discrètement sur l’art final." data-en="Every Sakidoo order is planned to include two complete standard decks—a simple gesture, with no codes or referral program. The final artwork will include sakidoostudio.com as a subtle detail.">Chaque commande Sakidoo est prévue avec deux jeux complets de cartes standards — un geste simple, sans code ni programme de référence. L’adresse sakidoostudio.com apparaîtra discrètement sur l’art final.</p>
         </div>
-      </article>
-
-      <article class="kit">
-        <span class="tag tq" data-en="Big groups">Grand groupe</span>
-        <div class="zip"></div>
-        <div class="ph sc-teams" role="img" aria-label="Photo — grande salle, deux équipes de 20 personnes qui crient, tour de gobelets"></div>
-        <div class="body">
-          <div class="row"><h3>Pyramide fragile</h3><div class="price">29 $</div></div>
-          <p style="font-size:13.5px" data-en="Stack, collapse, restack. It sounds simple until fourteen adults are yelling strategy at each other.">Empiler, écrouler, recommencer. Ça a l'air simple jusqu'à ce que quatorze adultes se crient des stratégies.</p>
-          <div class="meta">
-            <span data-en="10–40 players">10 à 40 joueurs</span><span data-en="20 minutes">20 minutes</span>
-            <span data-en="Indoor">Intérieur</span><span data-en="Ages 8+">8 ans +</span>
-          </div>
-          <a href="#" class="btn btn-yel add" data-en="Add to cart">Ajouter au panier</a>
-        </div>
-      </article>
-
-      <article class="kit">
-        <span class="tag tq" data-en="Outdoor">Extérieur</span>
-        <div class="zip"></div>
-        <div class="ph sc-cottage" role="img" aria-label="Photo — terrain de chalet, adultes pieds nus, ballon d'eau en plein vol"></div>
-        <div class="body">
-          <div class="row"><h3>Le grand déluge</h3><div class="price">27 $</div></div>
-          <p style="font-size:13.5px" data-en="An outdoor relay that ends with someone soaked. Everyone agrees in advance who it will be. Everyone is wrong.">Une course à relais dehors qui finit avec quelqu'un de trempé. Tout le monde devine d'avance qui. Tout le monde se trompe.</p>
-          <div class="meta">
-            <span data-en="8–24 players">8 à 24 joueurs</span><span data-en="25 minutes">25 minutes</span>
-            <span data-en="Outdoor">Extérieur</span><span data-en="Ages 6+">6 ans +</span>
-          </div>
-          <a href="#" class="btn btn-yel add" data-en="Add to cart">Ajouter au panier</a>
-        </div>
-      </article>
-
-      <article class="kit">
-        <span class="tag" data-en="Holiday pack">Pack des Fêtes</span>
-        <div class="zip"></div>
-        <div class="ph sc-pack" role="img" aria-label="Photo — sous-sol de Noël, six kits ouverts sur une table, monde qui s'installe"></div>
-        <div class="body">
-          <div class="row"><h3>Le party de ma tante</h3><div class="price">119 $</div></div>
-          <p style="font-size:13.5px" data-en="Six games in the right order for a holiday evening. Warm-up, peak, and a calm one for when the kids fade.">Six jeux dans le bon ordre pour une soirée des Fêtes. Un pour partir, un pour le sommet, un tranquille pour quand les enfants tombent.</p>
-          <div class="meta">
-            <span data-en="12–35 players">12 à 35 joueurs</span><span data-en="2–3 hours">2 à 3 heures</span>
-            <span data-en="Indoor">Intérieur</span><span data-en="All ages">Tous âges</span>
-          </div>
-          <a href="#" class="btn btn-yel add" data-en="Add to cart">Ajouter au panier</a>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- MEET SYLVIE -->
-  <section class="sec sylvie rv">
-    <div class="split">
-      <div class="ph sc-host" role="img" aria-label="Photo — Sylvie en pleine action, micro à la main, elle rit, la salle rit avec elle"></div>
-      <div>
-        <div class="eyebrow" style="color:var(--jaune)" data-en="Meet Sylvie">Rencontrez Sylvie</div>
-        <h2 data-en="Some people organize parties. Sylvie gets them off the ground.">Certaines personnes organisent des partys. Sylvie les fait lever.</h2>
-        <p data-en="She trained as a facilitator, and for a while she was studying to become a destination wedding planner. She was good at it. She also found it a little joyless — spreadsheets, time zones, seating charts.">Elle a étudié en animation. Pendant un temps, elle se dirigeait même vers la planification de mariages à l'étranger. Elle était bonne là-dedans. Elle trouvait aussi ça pas mal plate — des chiffriers, des fuseaux horaires, des plans de table.</p>
-        <p style="margin-top:14px" data-en="Then came a family reunion. 130 people, two nights, one very large cottage. She ended up organizing most of it — but what people still talk about years later isn't the logistics. It's the games.">Puis il y a eu une réunion de famille. 130 personnes, deux nuits, un très grand chalet. Elle a fini par organiser à peu près tout — mais ce dont le monde parle encore des années plus tard, ce n'est pas la logistique. C'est les jeux.</p>
-        <div class="quote" data-en="“We moved the date of our party because Sylvie couldn't come.” Somebody actually said that. More than once.">« On a changé la date de notre party parce que Sylvie ne pouvait pas venir. » Quelqu'un a vraiment dit ça. Plus d'une fois.</div>
-        <p data-en="So she started putting each game into a clear bag with a card explaining exactly how to run it. Not so she could stop showing up — so that the fun could happen even on the nights she isn't there.">Alors elle a commencé à mettre chaque jeu dans un sac transparent, avec une carte qui explique exactement comment le faire jouer. Pas pour arrêter de se déplacer — pour que le fun arrive aussi les soirs où elle n'est pas là.</p>
-        <div class="sign">Sylvie</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BOOK SYLVIE -->
-  <section class="sec rv">
-    <div class="sec-head">
-      <div>
-        <div class="eyebrow" data-en="Book Sylvie">Réserver Sylvie</div>
-        <h2 style="margin-top:10px" data-en="Or skip the bag and hire the person.">Ou sautez le sac et engagez la personne.</h2>
-      </div>
-      <p data-en="Sylvie hosts the whole thing: reads the room, adjusts the games live, and makes sure the quiet ones end up playing too.">Sylvie prend la soirée en main : elle lit la salle, ajuste les jeux en direct, et s'arrange pour que les gênés finissent par jouer eux aussi.</p>
-      <a href="#" class="more" data-en="See the services →">Voir les services →</a>
-    </div>
-    <div class="grid3">
-      <a href="#" class="svc"><h3 data-en="Office parties">Party de bureau</h3><p data-en="Holiday parties, milestones, welcome events. Works with or without alcohol, and nobody has to do a trust fall.">Fêtes de fin d'année, célébrations, accueils. Avec ou sans alcool, et personne n'a à se laisser tomber dans les bras d'un collègue.</p><span class="from" data-en="From $650 · 2h">À partir de 650 $ · 2 h</span></a>
-      <a href="#" class="svc"><h3 data-en="Family reunions">Réunion de famille</h3><p data-en="Ages 6 to 86 in the same room. This is the hardest kind of crowd and it's the one she's best at.">De 6 à 86 ans dans la même salle. C'est la foule la plus difficile — et c'est celle où elle est la meilleure.</p><span class="from" data-en="From $750 · 3h">À partir de 750 $ · 3 h</span></a>
-      <a href="#" class="svc"><h3 data-en="Weddings">Mariage</h3><p data-en="Not a planner. The person who fills the dead hour between supper and the dance floor, so your guests never drift to the parking lot.">Pas une planificatrice. La personne qui remplit l'heure morte entre le souper et la piste de danse, pour que vos invités ne migrent pas vers le stationnement.</p><span class="from" data-en="From $900 · evening">À partir de 900 $ · soirée</span></a>
-      <a href="#" class="svc"><h3 data-en="Team building">Team building</h3><p data-en="The kind people don't dread. No flip charts, no personality types, no debrief circle.">Le genre que le monde ne redoute pas. Pas de tableau à feuilles, pas de types de personnalité, pas de cercle de rétroaction.</p><span class="from" data-en="From $850 · half-day">À partir de 850 $ · demi-journée</span></a>
-      <a href="#" class="svc"><h3 data-en="Bachelorette">Bachelorette</h3><p data-en="Funny, a little cheeky, never humiliating. Sylvie reads the bride before she reads the room.">Drôle, un peu baveux, jamais humiliant. Sylvie lit la mariée avant de lire la salle.</p><span class="from" data-en="From $550 · 2h">À partir de 550 $ · 2 h</span></a>
-      <a href="#" class="svc"><h3 data-en="Big groups (50+)">Grand groupe (50+)</h3><p data-en="Community halls, conferences, reunions. Sylvie brings a mic, a plan, and a backup plan for the plan.">Salles communautaires, congrès, retrouvailles. Sylvie arrive avec un micro, un plan, et un plan B pour le plan.</p><span class="from" data-en="Custom quote">Sur soumission</span></a>
-    </div>
-    <div style="margin-top:32px"><a href="#" class="btn btn-or" data-en="Let's talk about your event">Parlons de votre événement</a></div>
-  </section>
-
-  <!-- SOCIAL PROOF -->
-  <section class="sec steps-sec rv">
-    <div class="demo-flag" data-en="◆ Demo content — placeholder testimonials, not real customers">◆ Contenu de démonstration — témoignages fictifs, pas de vrais clients</div>
-    <h2 style="margin-bottom:30px" data-en="What people say afterwards">Ce que le monde dit après</h2>
-    <div class="quotes">
-      <div class="quo"><blockquote data-en="“I didn't prepare a single thing and I was still the one who got thanked.”">« Je n'ai rien préparé pantoute et c'est quand même moi qu'on a remerciée. »</blockquote><cite data-en="Demo · Family reunion, Lanaudière">Démo · Réunion de famille, Lanaudière</cite></div>
-      <div class="quo"><blockquote data-en="“Everyone from 8 to 78 was playing. My father-in-law played. My father-in-law never plays.”">« Tout le monde de 8 à 78 ans jouait. Mon beau-père a joué. Mon beau-père ne joue jamais. »</blockquote><cite data-en="Demo · Christmas party, Gatineau">Démo · Party de Noël, Gatineau</cite></div>
-      <div class="quo"><blockquote data-en="“We moved our party by two weeks because Sylvie wasn't free. Worth it.”">« On a déplacé notre party de deux semaines parce que Sylvie n'était pas libre. Ça valait la peine. »</blockquote><cite data-en="Demo · Office party, Quebec City">Démo · Party de bureau, Québec</cite></div>
-    </div>
-  </section>
-
-  <!-- COMING SOON -->
-  <section class="sec rv">
-    <div class="soon">
-      <div>
-        <span class="pill" data-en="In development">En développement</span>
-        <h2 data-en="We invent our own games too.">On invente aussi nos propres jeux.</h2>
-        <p style="margin-top:14px;max-width:44ch" data-en="First one out of the workshop: a deck of playing cards that floats. Foam, waterproof, unbothered. Pool, beach, cottage, boat — the deck stays where you dropped it.">Premier sorti de l'atelier : un jeu de cartes qui flotte. En mousse, imperméable, imperturbable. Piscine, plage, chalet, bateau — le paquet reste où vous l'avez échappé.</p>
-        <p style="margin-top:16px;font-weight:700;color:#04302F" data-en="Floating cards — pool, cottage, beach. No problem.">Cartes flottantes — piscine, chalet, plage. Aucun problème.</p>
-        <div style="margin-top:22px"><a href="#" class="btn btn-ink" data-en="Tell me when it's ready">Prévenez-moi quand ce sera prêt</a></div>
-      </div>
-      <div class="floatcards" aria-hidden="true"><i></i><i></i><i></i></div>
-    </div>
-  </section>
-
-  <!-- NEWSLETTER -->
-  <section class="sec rv" style="padding-top:0">
-    <div class="news">
-      <div class="eyebrow" data-en="One email a month">Un courriel par mois</div>
-      <h2 style="margin-top:12px" data-en="Get one game idea before your next party.">Recevez une idée de jeu avant votre prochain party.</h2>
-      <p data-en="A game, the full instructions, and the list of what to buy — free, every month. Some people never order anything and just play the free ones. That's allowed.">Un jeu, les instructions au complet, et la liste de ce qu'il faut acheter — gratuit, chaque mois. Il y a du monde qui ne commande jamais rien et qui joue juste les gratuits. C'est permis.</p>
-      <div class="nform">
-        <input type="email" placeholder="votre@courriel.ca" aria-label="Courriel" data-ph-en="your@email.ca">
-        <button class="btn btn-or" data-en="Send me a game">Envoyez-moi un jeu</button>
-      </div>
-      <small data-en="Unsubscribe in one click. We don't share your address.">Désabonnement en un clic. On ne partage pas votre adresse.</small>
-    </div>
-  </section>
-
-</main>
-
-<!-- ================================================================ -->
-<!-- PAGE 2 — FICHE PRODUIT                                            -->
-<!-- ================================================================ -->
-<main id="page-pdp" hidden>
-
-  <div class="crumb"><span data-en="Games">Les jeux</span> / <span data-en="Indoor">Intérieur</span> / <b>Nez à nez</b></div>
-
-  <div class="pdp">
-    <div class="gallery">
-      <div class="ph sc-table main" role="img" aria-label="Photo principale — un homme d'âge mûr, boule de ouate sur le nez, expression de concentration absolue, salle floue derrière"></div>
-      <div class="thumbs">
-        <div class="ph sc-kit" role="img" aria-label="Contenu du sac étalé"></div>
-        <div class="ph sc-card" role="img" aria-label="Carte d'instructions, gros plan"></div>
-        <div class="ph sc-teams" role="img" aria-label="Deux équipes en action"></div>
-        <div class="ph sc-video" role="img" aria-label="▶ Vidéo démo · 40 s"></div>
-      </div>
-    </div>
-
-    <div>
-      <div class="eyebrow" data-en="Kit nº 07 · Indoor · Teams">Kit nº 07 · Intérieur · En équipes</div>
-      <h1>Nez à nez</h1>
-      <p class="lede" data-en="Transfer the cotton ball from the bowl to your teammate's plate. Using only your nose, and a little petroleum jelly. Two minutes on the clock. It is deeply undignified and it works on absolutely everyone.">Transférer la boule de ouate du bol à l'assiette de votre coéquipier. Avec le nez seulement, et un peu de vaseline. Deux minutes au chrono. C'est profondément indigne et ça marche sur absolument tout le monde.</p>
-
-      <div class="price-big">24 $ <span style="font-family:var(--body);font-size:13px;font-weight:600;color:var(--encre-60)" data-en="CAD · free shipping over $75">CAD · livraison gratuite dès 75 $</span></div>
-
-      <dl class="specs">
-        <div><dt data-en="Players">Joueurs</dt><dd data-en="6 to 12">6 à 12</dd></div>
-        <div><dt data-en="Duration">Durée</dt><dd data-en="15 minutes">15 minutes</dd></div>
-        <div><dt data-en="Space needed">Espace requis</dt><dd data-en="One table, 2 m">Une table, 2 m</dd></div>
-        <div><dt data-en="Age">Âge</dt><dd data-en="12 and up">12 ans et plus</dd></div>
-        <div><dt data-en="Energy">Énergie</dt><dd data-en="High">Élevée</dd></div>
-        <div><dt data-en="Difficulty">Difficulté</dt><dd data-en="Explained in 30 s">Expliqué en 30 s</dd></div>
-      </dl>
-
-      <div class="included">
-        <h3 data-en="What's in the bag">Ce qu'il y a dans le sac</h3>
-        <ul>
-          <li data-en="200 cotton balls (enough for 3 full rounds)">200 boules de ouate (assez pour 3 parties complètes)</li>
-          <li data-en="12 individual paper plates">12 assiettes de carton individuelles</li>
-          <li data-en="2 mixing bowls">2 bols à mélanger</li>
-          <li data-en="12 single-use jelly sachets — hygienic, no shared jar">12 sachets de vaseline à usage unique — hygiénique, pas de pot partagé</li>
-          <li data-en="1 sand timer (2 minutes)">1 sablier de 2 minutes</li>
-          <li data-en="1 instruction card, printed both sides, FR + EN">1 carte d'instructions, recto-verso, FR + EN</li>
-          <li data-en="1 scoring sheet">1 feuille de pointage</li>
-        </ul>
-        <p style="margin-top:12px;font-size:13px;font-weight:600" data-en="You supply: nothing.">Ce que vous fournissez : rien.</p>
-      </div>
-
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin:20px 0">
-        <a href="#" class="btn btn-yel" data-en="Add to cart">Ajouter au panier</a>
-        <a href="#" class="btn btn-out" data-en="Add to a pack — save 15%">Ajouter à un pack — 15 % de moins</a>
-      </div>
-
-      <div class="acc">
-        <details open><summary data-en="Can kids play?">Est-ce que les enfants peuvent jouer?</summary><p data-en="From about 8 with supervision, though we list it at 12+ because younger kids get frustrated by the jelly step. The card includes a no-jelly variation that works down to age 6.">À partir d'environ 8 ans avec supervision, mais on l'indique 12 ans + parce que les plus jeunes se découragent à l'étape de la vaseline. La carte inclut une variante sans vaseline qui fonctionne dès 6 ans.</p></details>
-        <details><summary data-en="Does it need alcohol?">Est-ce que ça prend de l'alcool?</summary><p data-en="No. It's on our short list of games that are just as good at a school fundraiser as at a bachelorette.">Non. C'est dans notre courte liste de jeux qui marchent aussi bien à une levée de fonds d'école qu'à une bachelorette.</p></details>
-        <details><summary data-en="Indoor only?">Seulement à l'intérieur?</summary><p data-en="Indoor is safest — a light breeze ends the game instantly. If you're outside, play in a garage or on a covered porch.">L'intérieur est plus sûr — un petit vent met fin à la partie sur-le-champ. Dehors, jouez dans un garage ou sur une véranda couverte.</p></details>
-        <details><summary data-en="Shipping and returns">Livraison et retours</summary><p data-en="Ships from Gatineau in 1–2 business days. Free over $75. Unopened kits can be returned for 30 days.">Expédié de Gatineau en 1 à 2 jours ouvrables. Gratuit dès 75 $. Les kits non ouverts sont retournables pendant 30 jours.</p></details>
-      </div>
-    </div>
-  </div>
-
-  <!-- INSTRUCTION CARD PREVIEW -->
-  <div class="sheet">
-    <div class="zipline" aria-hidden="true"></div>
-    <div class="eyebrow" data-en="Preview — the card inside the bag">Aperçu — la carte à l'intérieur du sac</div>
-    <h2 style="margin:10px 0 26px" data-en="You hand this to anyone. They can run the game.">Vous donnez ça à n'importe qui. Il peut faire jouer le monde.</h2>
-    <div class="sheet-grid">
-      <div>
-        <h4 data-en="Objective">Objectif</h4>
-        <p data-en="Move more cotton balls than the other team before the timer runs out. Balls that touch the floor don't count and cannot be picked up.">Transférer plus de boules de ouate que l'autre équipe avant la fin du sablier. Les boules qui touchent le sol ne comptent pas et ne peuvent pas être ramassées.</p>
-        <h4 style="margin-top:20px" data-en="Setup — 2 minutes">Montage — 2 minutes</h4>
-        <p data-en="One bowl at each end of the table. One plate per player. Teams line up. A dab of jelly on each nose.">Un bol à chaque bout de la table. Une assiette par joueur. Les équipes s'alignent. Une noisette de vaseline sur chaque nez.</p>
-      </div>
-      <div>
-        <h4 data-en="How to play">Déroulement</h4>
-        <ol>
-          <li data-en="Flip the timer and say go.">Retournez le sablier et criez «go».</li>
-          <li data-en="Player dips their nose in the bowl, one ball sticks.">Le joueur trempe son nez dans le bol, une boule colle.</li>
-          <li data-en="They walk to their plate and drop it — no hands, ever.">Il marche jusqu'à son assiette et la dépose — jamais de mains.</li>
-          <li data-en="Next player goes. Repeat until time is up.">Le joueur suivant part. On répète jusqu'à la fin.</li>
-          <li data-en="Count the plates out loud. Always out loud.">On compte les assiettes à voix haute. Toujours à voix haute.</li>
-        </ol>
-      </div>
-      <div>
-        <h4 data-en="Three variations">Trois variantes</h4>
-        <p data-en="Blindfolded · in pairs holding hands · the losing team picks the next game. The last one is the best and the card says so."><b>Les yeux bandés</b> · <b>en duo, main dans la main</b> · <b>l'équipe perdante choisit le prochain jeu.</b> La dernière est la meilleure et la carte le dit.</p>
-        <h4 style="margin-top:20px" data-en="If the room goes quiet">Si la salle devient silencieuse</h4>
-        <p data-en="Put the two loudest people on opposite teams and announce a sudden-death round. Works every time.">Mettez les deux personnes les plus bruyantes dans des équipes opposées et annoncez une manche de mort subite. Ça marche à tout coup.</p>
-      </div>
-    </div>
-  </div>
-
-  <section class="sec steps-sec">
-    <div class="sec-head">
-      <div><div class="eyebrow" data-en="Plays well with">Se joue bien avec</div><h2 style="margin-top:10px" data-en="Games that come right after this one">Des jeux qui vont juste après celui-là</h2></div>
-      <p data-en="Nez à nez is high energy. These three bring the room back down without losing anyone.">« Nez à nez » monte l'énergie. Ces trois-là redescendent la salle sans perdre personne.</p>
-    </div>
-    <div class="grid4">
-      <article class="kit"><div class="zip"></div><div class="ph sc-calm" role="img" aria-label="Photo — cercle assis, jeu calme"></div><div class="body"><div class="row"><h3>Ligne de vie</h3><div class="price">22 $</div></div><div class="meta"><span data-en="6–20 players">6 à 20 joueurs</span><span data-en="10 minutes">10 minutes</span></div></div></article>
-      <article class="kit"><div class="zip"></div><div class="ph sc-mime" role="img" aria-label="Photo — duel de mimes"></div><div class="body"><div class="row"><h3>Mononcle mime</h3><div class="price">21 $</div></div><div class="meta"><span data-en="8–24 players">8 à 24 joueurs</span><span data-en="20 minutes">20 minutes</span></div></div></article>
-      <article class="kit"><div class="zip"></div><div class="ph sc-table" role="img" aria-label="Photo — table, spaghetti et guimauves"></div><div class="body"><div class="row"><h3>Spaghetti nerveux</h3><div class="price">26 $</div></div><div class="meta"><span data-en="4–16 players">4 à 16 joueurs</span><span data-en="15 minutes">15 minutes</span></div></div></article>
-      <article class="kit"><span class="tag" data-en="Save 15%">15 % de moins</span><div class="zip"></div><div class="ph sc-pack" role="img" aria-label="Photo — quatre kits ensemble dans une boîte"></div><div class="body"><div class="row"><h3>Le pack complet</h3><div class="price">79 $</div></div><div class="meta"><span data-en="4 kits">4 kits</span><span data-en="~1 h">≈ 1 h</span></div></div></article>
-    </div>
-  </section>
-
-  <div class="stickybuy">
-    <div><div class="p">24 $</div></div>
-    <a href="#" class="btn btn-yel" data-en="Add to cart">Ajouter au panier</a>
-  </div>
-
-</main>
-
-<!-- ================================================================ -->
-<!-- PAGE 3 — ANIMATION                                                -->
-<!-- ================================================================ -->
-<main id="page-svc" hidden>
-
-  <section class="svc-hero">
-    <div class="eyebrow" style="color:rgba(255,255,255,.75)" data-en="Live animation with Sylvie">Animation avec Sylvie</div>
-    <h1 style="margin:14px 0 18px" data-en="Invite Sylvie. Then go be a guest.">Invitez Sylvie. Puis allez être un invité.</h1>
-    <p class="lede" data-en="You already know how your event goes without her: the food is good, people stand in their own little clusters, and it ends forty minutes earlier than you hoped. Sylvie is the difference between a gathering and a night people bring up next year.">Vous savez déjà comment ça se passe sans elle : le buffet est bon, le monde reste dans ses petits groupes, et ça finit quarante minutes plus tôt que vous l'espériez. Sylvie, c'est la différence entre un rassemblement et une soirée dont on reparle l'année suivante.</p>
-    <div style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap">
-      <a href="#form" class="btn btn-yel" data-en="Check her availability">Vérifier ses disponibilités</a>
-      <a href="#" class="btn btn-out" style="border-color:#fff;color:#fff" data-en="See how an evening runs">Voir comment se déroule une soirée</a>
-    </div>
-  </section>
-
-  <section class="sec">
-    <div class="split">
-      <div>
-        <div class="eyebrow" data-en="What you're actually hiring">Ce que vous engagez vraiment</div>
-        <h2 style="margin:10px 0 18px" data-en="Not a script. A read on the room.">Pas un script. Une lecture de la salle.</h2>
-        <p data-en="Sylvie arrives with about twelve games in the car and decides which ones happen once she's seen you. That decision is the service. Anyone can run an activity; knowing which activity, at what moment, for these specific people, is twenty years of work.">Sylvie arrive avec une douzaine de jeux dans l'auto et décide lesquels se joueront une fois qu'elle vous a vus. Cette décision-là, c'est le service. N'importe qui peut animer une activité; savoir laquelle, à quel moment, pour ces gens-là précisément, c'est vingt ans de métier.</p>
-        <p style="margin-top:14px" data-en="She adjusts on six things, live:">Elle ajuste sur six choses, en direct :</p>
-        <div class="adapt" style="margin-top:18px">
-          <div><b data-en="Ages">Les âges</b><p data-en="A game that works at 40 rarely works at 12 and 72 in the same room.">Un jeu qui marche à 40 ans marche rarement à 12 et 72 ans dans la même salle.</p></div>
-          <div><b data-en="Group size">Le nombre</b><p data-en="Fourteen people and eighty people are two different jobs.">Quatorze personnes et quatre-vingts personnes, c'est deux métiers différents.</p></div>
-          <div><b data-en="The room">Le lieu</b><p data-en="Low ceilings, a dance floor, gravel, a dock. Each rules some games out.">Plafond bas, piste de danse, gravier, un quai. Chacun élimine des jeux.</p></div>
-          <div><b data-en="Energy">L'énergie</b><p data-en="After a heavy meal you don't open with a relay race.">Après un gros repas, on ne part pas avec une course à relais.</p></div>
-          <div><b data-en="Time">Le temps</b><p data-en="Twenty spare minutes and two full hours need different structures.">Vingt minutes de battement et deux heures pleines, ça se bâtit autrement.</p></div>
-          <div><b data-en="The occasion">L'occasion</b><p data-en="What's funny at a bachelorette is a resignation letter at the office party.">Ce qui est drôle à une bachelorette, c'est une lettre de démission au party de bureau.</p></div>
+        <div class="decks-art reveal">
+          <img src="assets/images/sakidoo-playing-cards.jpg" width="1448" height="1086" loading="lazy" decoding="async" alt="Boîte blanche, dos marine et cartes colorées Sakidoo Studio" data-alt-fr="Boîte blanche, dos marine et cartes colorées Sakidoo Studio" data-alt-en="White box, navy card back, and colourful Sakidoo Studio playing cards">
         </div>
       </div>
-      <div class="ph sc-host" role="img" aria-label="Photo — Sylvie de dos, micro, face à une salle debout qui participe" style="border-radius:var(--radius);aspect-ratio:4/5"></div>
-    </div>
-  </section>
+    </section>
 
-  <section class="sec steps-sec">
-    <div class="sec-head">
-      <div><div class="eyebrow" data-en="How it works">Comment ça se passe</div><h2 style="margin-top:10px" data-en="From first message to the last laugh">Du premier message au dernier rire</h2></div>
-    </div>
-    <div class="tl">
-      <div><b data-en="1 · You write, she calls">1 · Vous écrivez, elle appelle</b><p data-en="A 15-minute call. Who's coming, where, what you're afraid of. That last question is the useful one.">Un appel de 15 minutes. Qui vient, où, et ce qui vous fait peur. C'est la dernière question qui sert le plus.</p></div>
-      <div><b data-en="2 · You get a plan, not a menu">2 · Vous recevez un plan, pas un menu</b><p data-en="A written running order with timings, and a fixed price. No hourly surprises.">Un déroulé écrit avec les minutages, et un prix fixe. Pas de surprise à l'heure.</p></div>
-      <div><b data-en="3 · She arrives early">3 · Elle arrive d'avance</b><p data-en="Ninety minutes before. She sets up, meets the host, finds the two people who'll help her get things started.">Quatre-vingt-dix minutes avant. Elle installe, rencontre l'hôte, et repère les deux personnes qui vont l'aider à partir le bal.</p></div>
-      <div><b data-en="4 · You are not in charge">4 · Vous n'êtes plus responsable</b><p data-en="This is the part people underestimate. For three hours, someone else is holding the evening.">C'est la partie que le monde sous-estime. Pendant trois heures, c'est quelqu'un d'autre qui tient la soirée.</p></div>
-      <div><b data-en="5 · She leaves you the kits">5 · Elle vous laisse les kits</b><p data-en="Whatever wasn't played stays with you, with the cards. Most people play them the next morning.">Ce qui n'a pas été joué reste chez vous, avec les cartes. La plupart du monde y joue le lendemain matin.</p></div>
-    </div>
-  </section>
+    <section class="section story" id="histoire" aria-labelledby="story-title">
+      <div class="shell story-grid">
+        <div class="story-shape reveal" aria-hidden="true"><span>Jouer</span><i></i><b>Rire</b></div>
+        <div class="story-copy reveal">
+          <p class="eyebrow" data-fr="Pourquoi Sakidoo" data-en="Why Sakidoo">Pourquoi Sakidoo</p>
+          <h2 id="story-title" data-fr="Parce que l’hôte devrait être de la partie." data-en="Because the host should get to join in.">Parce que l’hôte devrait être de la partie.</h2>
+          <p data-fr="Sakidoo est né après des années à préparer des rassemblements et à monter des jeux prêts à sortir au bon moment. L’idée était toute simple : rassembler d’avance ce qui fait jouer le monde, pour que la personne qui reçoit puisse elle aussi profiter de la soirée." data-en="Sakidoo grew from years of preparing gatherings and assembling games that were ready at just the right moment. The idea was simple: put together what gets people playing ahead of time, so the person hosting can enjoy the evening too.">Sakidoo est né après des années à préparer des rassemblements et à monter des jeux prêts à sortir au bon moment. L’idée était toute simple : rassembler d’avance ce qui fait jouer le monde, pour que la personne qui reçoit puisse elle aussi profiter de la soirée.</p>
+          <p class="signature" data-fr="Pensé au Québec, pour notre façon de se retrouver." data-en="Thought up in Quebec, for the way we come together.">Pensé au Québec, pour notre façon de se retrouver.</p>
+        </div>
+      </div>
+    </section>
 
-  <section class="sec" id="form">
-    <div class="form">
+    <section class="section closing" id="decouvrir" aria-labelledby="closing-title">
+      <div class="shell closing-card reveal">
+        <div><p class="eyebrow" data-fr="La suite arrive" data-en="More is on the way">La suite arrive</p><h2 id="closing-title" data-fr="On prépare quelque chose de le fun." data-en="We’re making something fun.">On prépare quelque chose de le fun.</h2><p data-fr="Les premiers jeux Sakidoo prennent forme. Revenez bientôt pour les découvrir." data-en="The first Sakidoo games are taking shape. Come back soon to discover them.">Les premiers jeux Sakidoo prennent forme. Revenez bientôt pour les découvrir.</p></div>
+        <a class="button button--primary" href="#top" data-fr="Retour en haut" data-en="Back to top">Retour en haut <span aria-hidden="true">↑</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <div class="shell footer-grid">
       <div>
-        <div class="eyebrow" style="color:var(--jaune)" data-en="Availability">Disponibilités</div>
-        <h2 style="margin:10px 0 16px;color:var(--creme)" data-en="Tell her about your event.">Parlez-lui de votre événement.</h2>
-        <p data-en="She answers within two business days, and she'll say so honestly if your event isn't a fit for her — which happens, and saves everybody a bad night.">Elle répond en moins de deux jours ouvrables, et elle vous le dira franchement si votre événement ne lui convient pas — ça arrive, et ça évite une mauvaise soirée à tout le monde.</p>
-        <p style="margin-top:16px;font-size:13.5px" data-en="Serving Gatineau, Ottawa, Montreal and the Laurentians. Elsewhere in Quebec with travel costs.">Gatineau, Ottawa, Montréal et les Laurentides. Ailleurs au Québec avec frais de déplacement.</p>
+        <a class="brand-logo brand-logo--footer" href="#top" aria-label="Sakidoo Studio — accueil" data-aria-fr="Sakidoo Studio — accueil" data-aria-en="Sakidoo Studio — home"><img src="assets/images/sakidoo-logo-dark.png" width="500" height="250" loading="lazy" alt="Sakidoo Studio"></a>
+        <p data-fr="Des jeux prêts à jouer, imaginés au Québec." data-en="Ready-to-play games imagined in Quebec.">Des jeux prêts à jouer, imaginés au Québec.</p>
       </div>
-      <div class="fields">
-        <label><span data-en="Your name">Votre nom</span><input type="text" placeholder="Sylvie Duchesne"></label>
-        <label><span data-en="Email">Courriel</span><input type="email" placeholder="votre@courriel.ca" data-ph-en="your@email.ca"></label>
-        <label><span data-en="Type of event">Type d'événement</span>
-          <select><option data-en="Family reunion">Réunion de famille</option><option data-en="Office party">Party de bureau</option><option data-en="Wedding">Mariage</option><option data-en="Bachelorette">Bachelorette</option><option data-en="Team building">Team building</option><option data-en="Other">Autre</option></select>
-        </label>
-        <label><span data-en="Date">Date</span><input type="text" placeholder="14 décembre 2026" data-ph-en="December 14, 2026"></label>
-        <label><span data-en="Number of guests">Nombre d'invités</span><input type="text" placeholder="45"></label>
-        <label><span data-en="Location">Lieu</span><input type="text" placeholder="Chalet, Val-des-Monts" data-ph-en="Cottage, Val-des-Monts"></label>
-        <label class="full"><span data-en="What are you hoping for — and what worries you?">Vous espérez quoi — et qu'est-ce qui vous inquiète?</span><textarea rows="3" placeholder="Mon beau-frère ne participe jamais." data-ph-en="My brother-in-law never joins in."></textarea></label>
-        <div class="full"><a href="#" class="btn btn-or" data-en="Send to Sylvie">Envoyer à Sylvie</a></div>
-      </div>
+      <nav aria-label="Navigation de pied de page" data-aria-fr="Navigation de pied de page" data-aria-en="Footer navigation">
+        <a href="#jeux" data-fr="Les jeux" data-en="The games">Les jeux</a>
+        <a href="#occasions" data-fr="Les occasions" data-en="Occasions">Les occasions</a>
+        <a href="#histoire" data-fr="Notre histoire" data-en="Our story">Notre histoire</a>
+      </nav>
+      <div class="footer-domain"><span data-fr="La maison de Sakidoo" data-en="The home of Sakidoo">La maison de Sakidoo</span><a href="https://sakidoostudio.com/">sakidoostudio.com</a></div>
     </div>
-  </section>
-
-</main>
-
-  <!-- ============ FOOTER ============ -->
-  <footer class="foot">
-    <div class="foot-grid">
-      <div>
-        <div class="logo" style="font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.035em">SAKIDOO <span class="studio">Studio</span></div>
-        <p style="color:#B7B2C4;font-size:13.5px;max-width:30ch" data-en="Party games, ready to play. And the person who invented them, if you want her there.">Des jeux de party prêts à jouer. Et la personne qui les a inventés, si vous la voulez sur place.</p>
-        <p style="margin-top:14px;font-size:12px;color:#736C8D" data-en="Gatineau, Quebec">Gatineau, Québec</p>
-      </div>
-      <div><h4 data-en="Shop">Boutique</h4><ul>
-        <li><a href="#" data-en="All games">Tous les jeux</a></li>
-        <li><a href="#" data-en="Collections">Collections</a></li>
-        <li><a href="#" data-en="Big groups">Grand groupe</a></li>
-        <li><a href="#" data-en="Gift cards">Cartes-cadeaux</a></li>
-      </ul></div>
-      <div><h4 data-en="Sylvie">Sylvie</h4><ul>
-        <li><a href="#" data-en="Live animation">Animation</a></li>
-        <li><a href="#" data-en="For companies">Pour les entreprises</a></li>
-        <li><a href="#" data-en="Weddings">Mariages</a></li>
-        <li><a href="#" data-en="Her story">Son histoire</a></li>
-      </ul></div>
-      <div><h4 data-en="Help">Aide</h4><ul>
-        <li><a href="#" data-en="Shipping">Livraison</a></li>
-        <li><a href="#" data-en="Returns">Retours</a></li>
-        <li><a href="#" data-en="Group orders">Commandes de groupe</a></li>
-        <li><a href="#" data-en="Contact">Contact</a></li>
-      </ul></div>
-    </div>
-    <div class="foot-bot">
-      <span data-en="© 2026 Sakidoo Studio inc. — provisional working name">© 2026 Sakidoo Studio inc. — nom de travail provisoire</span>
-      <span data-en="Privacy">Confidentialité</span>
-      <span data-en="Terms">Conditions</span>
-      <span style="margin-left:auto" data-en="Design mock-up · demo content">Maquette de design · contenu de démonstration</span>
-    </div>
+    <div class="shell footer-bottom"><span>© <span data-year></span> Sakidoo Studio</span><span data-fr="Fait au Québec avec une bonne dose de jeu." data-en="Made in Quebec with a generous dose of play.">Fait au Québec avec une bonne dose de jeu.</span></div>
   </footer>
 
-</div>
-</div>
-
-<script>
-(function(){
-  // ---- page switcher
-  var pages = {home:document.getElementById('page-home'),pdp:document.getElementById('page-pdp'),svc:document.getElementById('page-svc')};
-  document.querySelectorAll('[data-page]').forEach(function(b){
-    b.addEventListener('click',function(){
-      document.querySelectorAll('[data-page]').forEach(function(x){x.setAttribute('aria-pressed',x===b)});
-      for(var k in pages) pages[k].hidden = (k!==b.dataset.page);
-      window.scrollTo({top:0,behavior:'instant'});
-      reveal();
-    });
-  });
-
-  // ---- device toggle
-  document.querySelectorAll('[data-dev]').forEach(function(b){
-    b.addEventListener('click',function(){
-      document.querySelectorAll('[data-dev]').forEach(function(x){x.setAttribute('aria-pressed',x===b)});
-      document.body.classList.toggle('mobile', b.dataset.dev==='mob');
-    });
-  });
-
-  // ---- FR / EN
-  var lang='fr';
-  function setLang(next){
-    if(next===lang) return;
-    document.querySelectorAll('[data-en]').forEach(function(el){
-      if(!el.dataset.fr) el.dataset.fr = el.innerHTML;
-      el.innerHTML = (next==='en') ? el.dataset.en : el.dataset.fr;
-    });
-    document.querySelectorAll('[data-ph-en]').forEach(function(el){
-      if(!el.dataset.phFr) el.dataset.phFr = el.placeholder;
-      el.placeholder = (next==='en') ? el.dataset.phEn : el.dataset.phFr;
-    });
-    lang = next;
-    document.documentElement.lang = next;
-    document.querySelectorAll('[data-lang]').forEach(function(x){x.setAttribute('aria-pressed', x.dataset.lang===next)});
-  }
-  document.querySelectorAll('[data-lang]').forEach(function(b){
-    b.addEventListener('click',function(){setLang(b.dataset.lang)});
-  });
-
-  // ---- scroll reveal
-  var io = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-  },{threshold:.08});
-  function reveal(){ document.querySelectorAll('.rv:not(.in)').forEach(function(el){io.observe(el)}); }
-  reveal();
-})();
-</script>
+  <script src="assets/js/site.js" defer></script>
 </body>
 </html>
